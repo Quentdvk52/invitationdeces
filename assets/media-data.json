@@ -1,0 +1,66 @@
+{
+  "images": {
+    "hero": {
+      "filename": "hero.jpg",
+      "path": "assets/images/hero.jpg",
+      "alt": "Photo de Kouzalode djotondagba agounha",
+      "description": "Photo principale de la défunte"
+    },
+    "couple": {
+      "filename": "couple.jpg",
+      "path": "assets/images/couple.jpg",
+      "alt": "Le Couple HOUNNONGAN DASSOU",
+      "description": "Photo du couple"
+    },
+    "lozenge": {
+      "filename": "lozenge.jpg",
+      "path": "assets/images/lozenge.jpg",
+      "alt": "Photo en cadre losange",
+      "description": "Photo décorative en cadre losange"
+    },
+    "tissue": {
+      "filename": "tissue.jpg",
+      "path": "assets/images/tissue.jpg",
+      "alt": "Tissus de la cérémonie",
+      "description": "Photo des tissus de la cérémonie"
+    },
+    "souvenir1": {
+      "filename": "souvenir1.jpg",
+      "path": "assets/images/souvenir1.jpg",
+      "alt": "Photo souvenir 1",
+      "description": "Photo souvenir de la famille"
+    },
+    "souvenir2": {
+      "filename": "souvenir2.jpg",
+      "path": "assets/images/souvenir2.jpg",
+      "alt": "Photo souvenir 2",
+      "description": "Photo souvenir de la famille"
+    }
+  },
+  "audio": {
+    "main": {
+      "filename": "main.mp3",
+      "path": "assets/audio/main.mp3",
+      "title": "Musique de recueillement",
+      "description": "Musique principale du site"
+    },
+    "thanks": {
+      "filename": "thanks.mp3",
+      "path": "assets/audio/thanks.mp3",
+      "title": "Musique de remerciements",
+      "description": "Musique de la section remerciements"
+    }
+  },
+  "contact": {
+    "whatsapp_tissue": "+22996785341",
+    "whatsapp_footer": "+2290148494906"
+  },
+  "location": {
+    "place": "Cs Gnidjaszoun",
+    "coordinates": {
+      "lat": 7.2005394,
+      "lng": 2.0343172
+    },
+    "address": "Gnidjaszoun, Bénin"
+  }
+}

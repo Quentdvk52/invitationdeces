@@ -1,0 +1,265 @@
+/* Google Fonts import */
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Bebas+Neue&family=Source+Sans+3:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --color-black: #000000;
+  --color-dark: #0A0A0A;
+  --color-dark-gray: #1A1A1A;
+  --color-gray: #2A2A2A;
+  --color-gold: #D4AF37;
+  --color-gold-light: #F4D03F;
+  --color-gold-dark: #B8960C;
+  --color-white: #FFFFFF;
+  --color-muted: #888888;
+  --color-border: #333333;
+
+  --font-display: 'Bebas Neue', Impact, sans-serif;
+  --font-body: 'Source Sans 3', system-ui, sans-serif;
+  --font-script: 'Great Vibes', cursive;
+
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+  --spacing-2xl: 4rem;
+  --spacing-3xl: 6rem;
+
+  --transition-normal: 0.4s;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-black);
+  color: var(--color-white);
+  line-height: 1.6;
+  font-size: 16px;
+  overflow-x: hidden;
+  padding-bottom: 70px;
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-gold);
+  border-radius: 4px;
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 4px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Section base styles */
+section {
+  padding: var(--spacing-3xl) var(--spacing-md);
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.section-title {
+  font-family: var(--font-script);
+  font-size: 3rem;
+  color: var(--color-gold);
+  margin-bottom: var(--spacing-xl);
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  section {
+    padding: var(--spacing-2xl) var(--spacing-md);
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+}
+
+/* Button styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-md) var(--spacing-xl);
+  background: var(--color-gold);
+  color: var(--color-black);
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  transition: var(--transition-normal);
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  text-transform: uppercase;
+  border-radius: 50px;
+}
+
+.btn:hover {
+  background: var(--color-gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+}
+
+/* Nav link hover effect */
+.nav-link {
+  text-decoration: none;
+  color: var(--color-white);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  position: relative;
+  padding: var(--spacing-xs) 0;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--color-gold);
+  transition: var(--transition-normal);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Location grid responsive */
+@media (max-width: 768px) {
+  .location-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .map-container,
+  .video-container {
+    height: 300px !important;
+  }
+}
+
+/* Mobile nav visibility */
+@media (min-width: 769px) {
+  .mobile-nav {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .desktop-header {
+    display: none !important;
+  }
+
+  footer {
+    padding-bottom: 140px !important;
+  }
+
+  .photos-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .hero-in-memoriam {
+    font-size: 2.5rem !important;
+  }
+
+  .hero-name {
+    font-size: 1.5rem !important;
+  }
+
+  .age-badge {
+    width: 60px !important;
+    height: 60px !important;
+  }
+
+  .age-number {
+    font-size: 1.5rem !important;
+  }
+
+  .section-title {
+    font-size: 2rem !important;
+  }
+
+  .menu-arrow {
+    display: flex !important;
+  }
+
+  .menu-track {
+    animation: none !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .menu-track img {
+    width: 100% !important;
+    height: 250px !important;
+    scroll-snap-align: center !important;
+  }
+}
+
+/* Menu carousel keyframes */
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
