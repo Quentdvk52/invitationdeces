@@ -13,9 +13,10 @@ import Tissus from './components/Tissus';
 import Remerciements from './components/Remerciements';
 import MenuCarousel from './components/MenuCarousel';
 import Footer from './components/Footer';
+import ErrorBoundary from './components/ErrorBoundary';
 import './index.css';
 
-function App() {
+function AppContent() {
   const [loaderVisible, setLoaderVisible] = useState(true);
   const [headerVisible, setHeaderVisible] = useState(false);
 
@@ -40,12 +41,12 @@ function App() {
       }
     };
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
       anchor.addEventListener('click', handleAnchorClick);
     });
 
     return () => {
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.removeEventListener('click', handleAnchorClick);
       });
     };
@@ -53,51 +54,66 @@ function App() {
 
   return (
     <>
+      {/* Scène 3D d'arrière-plan immersive */}
       <ThreeScene />
 
+      {/* Écran de chargement élégant */}
       <Loader visible={loaderVisible} onComplete={handleLoaderComplete} />
 
+      {/* Navigation Desktop */}
       {headerVisible && <Header className="desktop-header" />}
 
-      <main>
-        <Hero setLoaderVisible={setLoaderVisible} />
+      {/* Contenu principal */}
+      <div className="site-wrapper" style={{ position: 'relative', zIndex: 1 }}>
+        <main>
+          <Hero setLoaderVisible={setLoaderVisible} />
 
-        {/* Audio Section 1 - Auto-play */}
-        <section
-          id="audio1"
-          style={{
-            background: 'var(--color-dark-gray)',
-            padding: 'var(--spacing-2xl) var(--spacing-md)',
-            textAlign: 'center',
-            borderTop: '2px solid var(--color-gold)',
-            borderBottom: '2px solid var(--color-gold)'
-          }}
-        >
-          <AudioPlayer
-            src={MEDIA_URLS.audio.main}
-            trackName="Musique de recueillement"
-            autoPlay={true}
-          />
-        </section>
+          {/* Audio Section 1 - Musique de recueillement */}
+          <section
+            id="audio1"
+            style={{
+              background: 'rgba(26, 26, 26, 0.85)',
+              backdropFilter: 'blur(16px)',
+              WebkitBackdropFilter: 'blur(16px)',
+              padding: 'var(--spacing-2xl) var(--spacing-md)',
+              textAlign: 'center',
+              borderTop: '2px solid var(--color-gold)',
+              borderBottom: '2px solid var(--color-gold)'
+            }}
+          >
+            <AudioPlayer
+              src={MEDIA_URLS.audio.main}
+              trackName="Musique de recueillement"
+              autoPlay={false}
+            />
+          </section>
 
-        <Annonce />
+          <Annonce />
 
-        <PhotoFrame />
+          <PhotoFrame />
 
-        <Localisation />
+          <Localisation />
 
-        <Tissus />
+          <Tissus />
 
-        <Remerciements audio2Playing={audio2Playing} />
+          <Remerciements />
 
-        <MenuCarousel />
-      </main>
+          <MenuCarousel />
+        </main>
 
+        <Footer />
+      </div>
+
+      {/* Navigation Mobile en bas */}
       <MobileNav />
-
-      <Footer />
     </>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <ErrorBoundary fallback={<div className="fatal-error">Une erreur est survenue lors du chargement de l'hommage.</div>}>
+      <AppContent />
+    </ErrorBoundary>
+  );
+}

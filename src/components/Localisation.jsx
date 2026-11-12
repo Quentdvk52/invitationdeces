@@ -6,9 +6,12 @@ export default function Localisation() {
     <section
       id="localisation"
       style={{
-        background: 'var(--color-dark-gray)',
+        background: 'rgba(18, 18, 18, 0.85)',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
         padding: 'var(--spacing-2xl) var(--spacing-md)',
-        textAlign: 'center'
+        textAlign: 'center',
+        borderBottom: '1px solid rgba(212, 175, 55, 0.2)'
       }}
     >
       <motion.h2
@@ -29,9 +32,9 @@ export default function Localisation() {
         className="location-grid"
         style={{
           display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: 'var(--spacing-md)',
-          maxWidth: '1200px',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gap: 'var(--spacing-lg)',
+          maxWidth: '1100px',
           margin: 'var(--spacing-xl) auto'
         }}
       >
@@ -44,7 +47,7 @@ export default function Localisation() {
           <h3
             style={{
               fontFamily: 'var(--font-display)',
-              fontSize: '1.5rem',
+              fontSize: '1.6rem',
               color: 'var(--color-gold)',
               marginBottom: 'var(--spacing-md)'
             }}
@@ -55,17 +58,18 @@ export default function Localisation() {
             className="map-container"
             style={{
               width: '100%',
-              height: '400px',
-              border: '2px solid var(--color-gold)',
+              height: '380px',
+              border: '2px solid rgba(212, 175, 55, 0.6)',
               borderRadius: 'var(--spacing-md)',
-              overflow: 'hidden'
+              overflow: 'hidden',
+              boxShadow: '0 10px 30px rgba(0,0,0,0.6)'
             }}
           >
             <iframe
               src={`https://maps.google.com/maps?q=${SITE_DATA.location.mapQuery}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
               width="100%"
               height="100%"
-              style={{ border: 'none' }}
+              style={{ border: 'none', filter: 'grayscale(30%) contrast(1.1)' }}
               allowFullScreen=""
               loading="lazy"
               title="Localisation des cérémonies"
@@ -82,21 +86,23 @@ export default function Localisation() {
           <h3
             style={{
               fontFamily: 'var(--font-display)',
-              fontSize: '1.5rem',
+              fontSize: '1.6rem',
               color: 'var(--color-gold)',
               marginBottom: 'var(--spacing-md)'
             }}
           >
-            Vidéo
+            Vidéo Guide
           </h3>
           <div
             className="video-container"
             style={{
               width: '100%',
-              height: '400px',
-              border: '2px solid var(--color-gold)',
+              height: '380px',
+              border: '2px solid rgba(212, 175, 55, 0.6)',
               borderRadius: 'var(--spacing-md)',
-              overflow: 'hidden'
+              overflow: 'hidden',
+              boxShadow: '0 10px 30px rgba(0,0,0,0.6)',
+              background: '#000'
             }}
           >
             <video
@@ -104,6 +110,7 @@ export default function Localisation() {
               muted
               loop
               playsInline
+              controls
               style={{
                 width: '100%',
                 height: '100%',
@@ -111,6 +118,7 @@ export default function Localisation() {
               }}
             >
               <source src={MEDIA_URLS.video.location} type="video/mp4" />
+              Votre navigateur ne supporte pas la lecture vidéo.
             </video>
           </div>
         </div>
@@ -122,10 +130,12 @@ export default function Localisation() {
         viewport={{ once: true, margin: '-100px' }}
         transition={{ duration: 1, delay: 0.4 }}
         style={{
-          fontSize: '1rem',
+          fontSize: '1.1rem',
           color: 'var(--color-gold)',
           marginTop: 'var(--spacing-lg)',
-          fontStyle: 'italic'
+          fontStyle: 'italic',
+          maxWidth: '700px',
+          margin: 'var(--spacing-lg) auto 0'
         }}
       >
         {SITE_DATA.location.hint}

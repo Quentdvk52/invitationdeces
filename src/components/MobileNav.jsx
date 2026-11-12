@@ -9,24 +9,28 @@ export default function MobileNav() {
 
   return (
     <nav
+      className="mobile-nav"
       style={{
         position: 'fixed',
         bottom: 0,
         left: 0,
         right: 0,
-        background: 'rgba(0, 0, 0, 0.95)',
+        background: 'rgba(10, 10, 10, 0.92)',
         backdropFilter: 'blur(20px)',
-        borderTop: '1px solid var(--color-border)',
+        WebkitBackdropFilter: 'blur(20px)',
+        borderTop: '1px solid rgba(212, 175, 55, 0.3)',
         zIndex: 1000,
         display: 'flex',
         justifyContent: 'space-around',
-        padding: 'var(--spacing-sm) 0'
+        padding: 'var(--spacing-xs) 0',
+        paddingBottom: 'calc(var(--spacing-xs) + env(safe-area-inset-bottom, 0px))'
       }}
     >
       {navItems.map((item) => (
         <a
           key={item.href}
           href={item.href}
+          className="mobile-nav-link"
           style={{
             display: 'flex',
             flexDirection: 'column',
@@ -46,8 +50,8 @@ export default function MobileNav() {
         >
           <span
             style={{
-              fontSize: '1.5rem',
-              marginBottom: '4px'
+              fontSize: '1.4rem',
+              marginBottom: '2px'
             }}
           >
             {item.icon}

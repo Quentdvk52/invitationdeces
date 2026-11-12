@@ -8,20 +8,22 @@ export default function MenuCarousel() {
 
   const handlePrev = () => {
     if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
+      const nextIndex = currentIndex - 1;
+      setCurrentIndex(nextIndex);
       const images = trackRef.current?.querySelectorAll('img');
-      if (images && images[currentIndex - 1]) {
-        images[currentIndex - 1].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      if (images && images[nextIndex]) {
+        images[nextIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
       }
     }
   };
 
   const handleNext = () => {
     if (currentIndex < MEDIA_URLS.images.menu.length - 1) {
-      setCurrentIndex(currentIndex + 1);
+      const nextIndex = currentIndex + 1;
+      setCurrentIndex(nextIndex);
       const images = trackRef.current?.querySelectorAll('img');
-      if (images && images[currentIndex + 1]) {
-        images[currentIndex + 1].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      if (images && images[nextIndex]) {
+        images[nextIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
       }
     }
   };
@@ -30,7 +32,9 @@ export default function MenuCarousel() {
     <section
       id="menu"
       style={{
-        background: 'var(--color-dark-gray)',
+        background: 'rgba(18, 18, 18, 0.85)',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
         padding: 'var(--spacing-2xl) var(--spacing-md)',
         textAlign: 'center',
         borderBottom: '2px solid var(--color-gold)'
@@ -46,6 +50,16 @@ export default function MenuCarousel() {
         Au menu
       </motion.h2>
 
+      <motion.p
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-100px' }}
+        transition={{ duration: 1, delay: 0.1 }}
+        style={{ color: 'var(--color-muted)', fontSize: '1rem', marginBottom: 'var(--spacing-md)' }}
+      >
+        Aperçu des mets et rafraîchissements prévus pour la réception
+      </motion.p>
+
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -53,8 +67,8 @@ export default function MenuCarousel() {
         transition={{ duration: 1, delay: 0.2 }}
         style={{
           overflow: 'hidden',
-          marginTop: 'var(--spacing-xl)',
-          maxWidth: '600px',
+          marginTop: 'var(--spacing-lg)',
+          maxWidth: '750px',
           marginLeft: 'auto',
           marginRight: 'auto',
           position: 'relative'
@@ -62,6 +76,7 @@ export default function MenuCarousel() {
       >
         <button
           onClick={handlePrev}
+          aria-label="Plat précédent"
           style={{
             position: 'absolute',
             top: '50%',
@@ -69,16 +84,18 @@ export default function MenuCarousel() {
             background: 'var(--color-gold)',
             color: 'var(--color-black)',
             border: 'none',
-            width: '50px',
-            height: '50px',
+            width: '46px',
+            height: '46px',
             borderRadius: '50%',
-            fontSize: '1.5rem',
+            fontSize: '1.4rem',
+            fontWeight: 'bold',
             cursor: 'pointer',
             zIndex: 10,
-            display: 'none',
+            display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            left: '10px'
+            left: '12px',
+            boxShadow: '0 4px 15px rgba(0,0,0,0.6)'
           }}
           className="menu-arrow menu-arrow-left"
           onMouseEnter={(e) => {
@@ -96,7 +113,7 @@ export default function MenuCarousel() {
           className="menu-track"
           style={{
             display: 'flex',
-            animation: 'scroll-left 66s steps(11) infinite'
+            gap: '12px'
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.animationPlayState = 'paused';
@@ -109,14 +126,15 @@ export default function MenuCarousel() {
             <img
               key={index}
               src={src}
-              alt="Plat"
+              alt={`Mets de réception ${index + 1}`}
               style={{
-                width: '500px',
-                height: '350px',
+                width: '460px',
+                height: '320px',
                 objectFit: 'cover',
-                border: '2px solid var(--color-gold)',
+                border: '2px solid rgba(212, 175, 55, 0.7)',
                 borderRadius: 'var(--spacing-sm)',
-                flexShrink: 0
+                flexShrink: 0,
+                boxShadow: '0 10px 25px rgba(0,0,0,0.5)'
               }}
             />
           ))}
@@ -124,6 +142,7 @@ export default function MenuCarousel() {
 
         <button
           onClick={handleNext}
+          aria-label="Plat suivant"
           style={{
             position: 'absolute',
             top: '50%',
@@ -131,16 +150,18 @@ export default function MenuCarousel() {
             background: 'var(--color-gold)',
             color: 'var(--color-black)',
             border: 'none',
-            width: '50px',
-            height: '50px',
+            width: '46px',
+            height: '46px',
             borderRadius: '50%',
-            fontSize: '1.5rem',
+            fontSize: '1.4rem',
+            fontWeight: 'bold',
             cursor: 'pointer',
             zIndex: 10,
-            display: 'none',
+            display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            right: '10px'
+            right: '12px',
+            boxShadow: '0 4px 15px rgba(0,0,0,0.6)'
           }}
           className="menu-arrow menu-arrow-right"
           onMouseEnter={(e) => {

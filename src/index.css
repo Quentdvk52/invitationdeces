@@ -1,21 +1,22 @@
 /* Google Fonts import */
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Bebas+Neue&family=Source+Sans+3:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Bebas+Neue&family=Source+Sans+3:wght@300;400;500;600;700&display=swap');
 
 :root {
   --color-black: #000000;
   --color-dark: #0A0A0A;
-  --color-dark-gray: #1A1A1A;
-  --color-gray: #2A2A2A;
+  --color-dark-gray: #141414;
+  --color-gray: #242424;
   --color-gold: #D4AF37;
   --color-gold-light: #F4D03F;
   --color-gold-dark: #B8960C;
   --color-white: #FFFFFF;
-  --color-muted: #888888;
+  --color-muted: #A0A0A0;
   --color-border: #333333;
 
   --font-display: 'Bebas Neue', Impact, sans-serif;
   --font-body: 'Source Sans 3', system-ui, sans-serif;
   --font-script: 'Great Vibes', cursive;
+  --font-serif: 'Cinzel', Georgia, serif;
 
   --spacing-xs: 0.5rem;
   --spacing-sm: 1rem;
@@ -25,7 +26,7 @@
   --spacing-2xl: 4rem;
   --spacing-3xl: 6rem;
 
-  --transition-normal: 0.4s;
+  --transition-normal: 0.35s ease;
 }
 
 * {
@@ -36,11 +37,12 @@
 
 html {
   scroll-behavior: smooth;
+  background-color: #050505;
 }
 
 body {
   font-family: var(--font-body);
-  background-color: var(--color-black);
+  background-color: #050505;
   color: var(--color-white);
   line-height: 1.6;
   font-size: 16px;
@@ -50,7 +52,7 @@ body {
 
 @media (max-width: 768px) {
   body {
-    font-size: 14px;
+    font-size: 15px;
   }
 }
 
@@ -60,7 +62,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-dark);
+  background: #0A0A0A;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -72,18 +74,6 @@ body {
 :focus-visible {
   outline: 2px solid var(--color-gold);
   outline-offset: 4px;
-}
-
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
-  }
-
-  html {
-    scroll-behavior: auto;
-  }
 }
 
 /* Typography */
@@ -108,27 +98,25 @@ img {
 
 /* Section base styles */
 section {
-  padding: var(--spacing-3xl) var(--spacing-md);
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
   position: relative;
+  box-sizing: border-box;
 }
 
 .section-title {
-  font-family: var(--font-script);
-  font-size: 3rem;
+  font-family: var(--font-display);
+  font-size: 2.8rem;
   color: var(--color-gold);
+  letter-spacing: 0.12em;
   margin-bottom: var(--spacing-xl);
   text-align: center;
+  text-transform: uppercase;
+  text-shadow: 0 0 25px rgba(212, 175, 55, 0.35);
 }
 
 @media (max-width: 768px) {
-  section {
-    padding: var(--spacing-2xl) var(--spacing-md);
-  }
-
   .section-title {
-    font-size: 2rem;
+    font-size: 2.1rem;
   }
 }
 
@@ -137,35 +125,39 @@ section {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: var(--spacing-md) var(--spacing-xl);
-  background: var(--color-gold);
-  color: var(--color-black);
+  padding: 0.9rem 2.2rem;
+  background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-dark) 100%);
+  color: #000000;
   text-decoration: none;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  transition: var(--transition-normal);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  transition: all var(--transition-normal);
   border: none;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 0.95rem;
   text-transform: uppercase;
   border-radius: 50px;
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
 }
 
 .btn:hover {
-  background: var(--color-gold-light);
+  background: linear-gradient(135deg, var(--color-gold-light) 0%, var(--color-gold) 100%);
   transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.6);
+  color: #000000;
 }
 
 /* Nav link hover effect */
 .nav-link {
   text-decoration: none;
-  color: var(--color-white);
-  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.9rem;
   font-weight: 500;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   position: relative;
   padding: var(--spacing-xs) 0;
+  text-transform: uppercase;
+  transition: color var(--transition-normal);
 }
 
 .nav-link::after {
@@ -176,7 +168,11 @@ section {
   width: 0;
   height: 2px;
   background: var(--color-gold);
-  transition: var(--transition-normal);
+  transition: width var(--transition-normal);
+}
+
+.nav-link:hover {
+  color: var(--color-gold);
 }
 
 .nav-link:hover::after {
@@ -216,7 +212,7 @@ section {
   }
 
   .hero-in-memoriam {
-    font-size: 2.5rem !important;
+    font-size: 2.8rem !important;
   }
 
   .hero-name {
@@ -224,16 +220,12 @@ section {
   }
 
   .age-badge {
-    width: 60px !important;
-    height: 60px !important;
+    width: 62px !important;
+    height: 62px !important;
   }
 
   .age-number {
     font-size: 1.5rem !important;
-  }
-
-  .section-title {
-    font-size: 2rem !important;
   }
 
   .menu-arrow {
@@ -261,5 +253,43 @@ section {
   }
   100% {
     transform: translateX(-100%);
+  }
+}
+
+/* Three.js canvas container & fallbacks */
+.three-canvas-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.three-fallback-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 25%, rgba(212, 175, 55, 0.12) 0%, #050505 75%);
+}
+
+.fatal-error {
+  padding: 3rem;
+  text-align: center;
+  color: var(--color-gold);
+  font-size: 1.2rem;
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  .menu-track {
+    animation: none !important;
   }
 }
