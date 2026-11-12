@@ -1,6 +1,19 @@
 import { motion, AnimatePresence } from 'motion/react';
+import { useAudio } from '../context/AudioContext';
 
 export default function Loader({ visible, onComplete }) {
+  const { startAutoSequence } = useAudio();
+
+  const handleEnter = () => {
+    // Déclenche l'enchaînement automatique musical dès l'interaction d'entrée
+    try {
+      startAutoSequence();
+    } catch (e) {
+      console.warn('[Loader] startAutoSequence warning:', e);
+    }
+    onComplete();
+  };
+
   return (
     <AnimatePresence>
       {visible && (
@@ -9,11 +22,11 @@ export default function Loader({ visible, onComplete }) {
           exit={{ opacity: 0, y: '-100%' }}
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           onAnimationComplete={onComplete}
-          onClick={onComplete}
+          onClick={handleEnter}
           style={{
             position: 'fixed',
             inset: 0,
-            background: 'radial-gradient(ellipse at 50% 40%, #1A1410 0%, #080605 90%)',
+            background: 'radial-gradient(ellipse at 50% 40%, #1A1410 0%, #080605 95%)',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -27,10 +40,10 @@ export default function Loader({ visible, onComplete }) {
           <div
             style={{
               position: 'absolute',
-              width: '320px',
-              height: '320px',
-              background: 'radial-gradient(circle, rgba(212, 175, 55, 0.22) 0%, transparent 70%)',
-              filter: 'blur(35px)',
+              width: '340px',
+              height: '340px',
+              background: 'radial-gradient(circle, rgba(212, 175, 55, 0.28) 0%, transparent 70%)',
+              filter: 'blur(40px)',
               pointerEvents: 'none'
             }}
           />
@@ -48,14 +61,14 @@ export default function Loader({ visible, onComplete }) {
             }}
           >
             {/* Emblème colombe et dorure */}
-            <div style={{ fontSize: '2.5rem', marginBottom: '0.8rem', filter: 'drop-shadow(0 0 15px rgba(212, 175, 55, 0.6))' }}>
+            <div style={{ fontSize: '2.8rem', marginBottom: '0.8rem', filter: 'drop-shadow(0 0 20px rgba(212, 175, 55, 0.7))' }}>
               🕊️
             </div>
 
             <div
               className="poetic-script"
               style={{
-                fontSize: 'clamp(2.4rem, 6vw, 3.8rem)',
+                fontSize: 'clamp(2.4rem, 6vw, 4rem)',
                 marginBottom: '0.5rem'
               }}
             >
@@ -80,7 +93,7 @@ export default function Loader({ visible, onComplete }) {
                 fontFamily: 'var(--font-serif)',
                 fontStyle: 'italic',
                 color: 'var(--text-secondary)',
-                fontSize: '1rem',
+                fontSize: '1.05rem',
                 margin: '0 auto 1.8rem'
               }}
             >
@@ -93,7 +106,7 @@ export default function Loader({ visible, onComplete }) {
                 width: '240px',
                 height: '2px',
                 background: 'rgba(255, 255, 255, 0.12)',
-                margin: '0 auto 1.4rem',
+                margin: '0 auto 1.6rem',
                 borderRadius: '2px',
                 overflow: 'hidden',
                 position: 'relative'
@@ -111,6 +124,24 @@ export default function Loader({ visible, onComplete }) {
               />
             </div>
 
+            {/* Bouton d'entrée Royal lumineux */}
+            <button
+              className="btn-royal"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleEnter();
+              }}
+              style={{
+                margin: '0 auto 1rem',
+                cursor: 'pointer',
+                padding: '12px 30px',
+                fontSize: '0.95rem'
+              }}
+            >
+              <span>Entrer dans l'Hommage</span>
+              <span className="btn-icon-bubble">🕊️</span>
+            </button>
+
             <div
               style={{
                 fontSize: '0.78rem',
@@ -121,7 +152,7 @@ export default function Loader({ visible, onComplete }) {
                 opacity: 0.85
               }}
             >
-              Touchez l'écran pour entrer
+              Touchez l'écran pour écouter & entrer
             </div>
           </motion.div>
         </motion.div>

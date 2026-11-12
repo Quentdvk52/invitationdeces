@@ -1,8 +1,19 @@
 import { motion } from 'motion/react';
 import { MEDIA_URLS, SITE_DATA } from '../constants/media';
 import AudioPlayer from './AudioPlayer';
+import { useLightbox } from '../context/LightboxContext';
 
 export default function Annonce() {
+  const { openLightbox } = useLightbox();
+
+  const handleOpenCouple = () => {
+    openLightbox({
+      type: 'image',
+      src: MEDIA_URLS.images.couple,
+      alt: `${SITE_DATA.couple.name}`
+    });
+  };
+
   return (
     <section
       id="annonce"
@@ -127,24 +138,70 @@ export default function Annonce() {
             </h3>
           </div>
 
-          {/* Photo du Couple dans un cadre d'art */}
+          {/* Photo du Couple avec bordure animée lumineuse et clic plein écran */}
           <div
             style={{
-              maxWidth: '380px',
-              margin: '0 auto var(--space-xl)',
-              borderRadius: 'var(--radius-inner)',
-              overflow: 'hidden',
-              padding: '3px',
-              background: 'linear-gradient(135deg, var(--gold-light), rgba(212, 175, 55, 0.2), var(--pearl-white))',
-              boxShadow: '0 15px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(212, 175, 55, 0.25)'
+              maxWidth: '400px',
+              margin: '0 auto var(--space-xl)'
             }}
           >
-            <div style={{ borderRadius: 'calc(var(--radius-inner) - 3px)', overflow: 'hidden' }}>
-              <img
-                src={MEDIA_URLS.images.couple}
-                alt={SITE_DATA.couple.name}
-                style={{ width: '100%', display: 'block', filter: 'contrast(1.03)' }}
-              />
+            <div
+              className="luminous-photo-card"
+              onClick={handleOpenCouple}
+              title="Cliquer pour afficher la photo en grand"
+            >
+              <div
+                style={{
+                  padding: '6px',
+                  background: '#120F0D',
+                  borderRadius: 'calc(var(--radius-inner) - 2px)'
+                }}
+              >
+                <div
+                  style={{
+                    borderRadius: 'calc(var(--radius-inner) - 6px)',
+                    overflow: 'hidden',
+                    position: 'relative'
+                  }}
+                >
+                  <img
+                    src={MEDIA_URLS.images.couple}
+                    alt={SITE_DATA.couple.name}
+                    style={{
+                      width: '100%',
+                      display: 'block',
+                      filter: 'contrast(1.03)',
+                      transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'scale(1.035)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'scale(1)';
+                    }}
+                  />
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: '12px',
+                      right: '12px',
+                      background: 'rgba(18, 14, 12, 0.8)',
+                      backdropFilter: 'blur(10px)',
+                      borderRadius: '50%',
+                      width: '32px',
+                      height: '32px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      border: '1px solid rgba(212, 175, 55, 0.5)',
+                      color: 'var(--gold-light)',
+                      fontSize: '0.85rem'
+                    }}
+                  >
+                    ⤢
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -188,7 +245,7 @@ export default function Annonce() {
           {/* Lecteur Audio de l'Annonce vocale */}
           <div style={{ marginTop: 'var(--space-lg)' }}>
             <AudioPlayer
-              src={MEDIA_URLS.audio.annonce}
+              trackId="annonce"
               trackName="Annonce vocale solennelle"
               subtitle="Enregistrement officiel de la famille"
             />

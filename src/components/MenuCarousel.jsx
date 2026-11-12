@@ -1,8 +1,10 @@
 import { useState, useRef } from 'react';
 import { motion } from 'motion/react';
 import { MEDIA_URLS } from '../constants/media';
+import { useLightbox } from '../context/LightboxContext';
 
 export default function MenuCarousel() {
+  const { openLightbox } = useLightbox();
   const [currentIndex, setCurrentIndex] = useState(0);
   const trackRef = useRef(null);
 
@@ -30,7 +32,6 @@ export default function MenuCarousel() {
     }
   };
 
-  // Noms soignés pour chaque met
   const dishLabels = [
     "Rafraîchissements Sobebra",
     "Boissons & Sélection Prestige",
@@ -44,6 +45,14 @@ export default function MenuCarousel() {
     "Riz au Gras Festif",
     "Télibo aux Légumes"
   ];
+
+  const handleOpenDish = (src, idx) => {
+    openLightbox({
+      type: 'image',
+      src,
+      alt: `${dishLabels[idx] || `Mets de Cérémonie #${idx + 1}`} — Réception Fraternelle`
+    });
+  };
 
   return (
     <section
@@ -146,9 +155,12 @@ export default function MenuCarousel() {
             <div
               key={idx}
               className="menu-showcase-card"
+              onClick={() => handleOpenDish(src, idx)}
+              title="Cliquer pour afficher la photo en grand"
               style={{
                 scrollSnapAlign: 'center',
-                position: 'relative'
+                position: 'relative',
+                cursor: 'pointer'
               }}
             >
               <img
@@ -177,7 +189,7 @@ export default function MenuCarousel() {
                       marginBottom: '2px'
                     }}
                   >
-                    Mets de Cérémonie #{idx + 1}
+                    Mets #{idx + 1} • Cliquer pour agrandir ⤢
                   </div>
                   <div
                     style={{

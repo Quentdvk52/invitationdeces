@@ -1,10 +1,21 @@
 import { motion } from 'motion/react';
 import { MEDIA_URLS, SITE_DATA } from '../constants/media';
+import { useLightbox } from '../context/LightboxContext';
 
 export default function Tissus() {
+  const { openLightbox } = useLightbox();
+
   const whatsappUrl = `https://wa.me/${SITE_DATA.contact.whatsappTissus}?text=${encodeURIComponent(
     "Bonjour, je souhaite commander le tissu officiel pour les obsèques de la belle-mère de M. Hounnongan DASSOU."
   )}`;
+
+  const handleOpenTissue = () => {
+    openLightbox({
+      type: 'image',
+      src: MEDIA_URLS.images.tissue,
+      alt: "Tissu officiel de la cérémonie — Prix demi pièce : 5.500 FCFA"
+    });
+  };
 
   return (
     <section
@@ -25,57 +36,93 @@ export default function Tissus() {
         Unissons nos cœurs et nos parures dans les mêmes étoffes d'honneur et de communion fraternelle.
       </p>
 
-      {/* Cadre de luxe pour le tissu */}
+      {/* Cadre de luxe pour le tissu avec bordure animée */}
       <motion.div
         initial={{ opacity: 0, scale: 0.95, y: 35 }}
         whileInView={{ opacity: 1, scale: 1, y: 0 }}
         viewport={{ once: true, margin: '-80px' }}
         transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-        className="luxury-card"
         style={{ maxWidth: '460px', margin: '0 auto var(--space-xl)' }}
       >
-        <div className="luxury-card-inner" style={{ padding: '12px' }}>
+        <div
+          className="luminous-photo-card"
+          onClick={handleOpenTissue}
+          title="Cliquer pour afficher le tissu en grand"
+        >
           <div
             style={{
-              borderRadius: 'calc(var(--radius-inner) - 4px)',
-              overflow: 'hidden',
-              position: 'relative',
-              boxShadow: '0 15px 40px rgba(0, 0, 0, 0.7)'
+              padding: '6px',
+              background: '#120F0D',
+              borderRadius: 'calc(var(--radius-inner) - 2px)'
             }}
           >
-            <img
-              src={MEDIA_URLS.images.tissue}
-              alt="Tissus officiel de la cérémonie"
-              style={{
-                width: '100%',
-                display: 'block',
-                transition: 'transform 0.6s ease'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'scale(1.05)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'scale(1)';
-              }}
-            />
             <div
               style={{
-                position: 'absolute',
-                bottom: '12px',
-                left: '12px',
-                background: 'rgba(18, 14, 12, 0.85)',
-                backdropFilter: 'blur(10px)',
-                padding: '6px 14px',
-                borderRadius: 'var(--radius-pill)',
-                border: '1px solid rgba(212, 175, 55, 0.4)',
-                fontSize: '0.75rem',
-                color: 'var(--gold-light)',
-                letterSpacing: '0.1em',
-                textTransform: 'uppercase',
-                fontWeight: 600
+                borderRadius: 'calc(var(--radius-inner) - 6px)',
+                overflow: 'hidden',
+                position: 'relative',
+                boxShadow: '0 15px 40px rgba(0, 0, 0, 0.7)'
               }}
             >
-              Étoffe Officielle
+              <img
+                src={MEDIA_URLS.images.tissue}
+                alt="Tissu officiel de la cérémonie"
+                style={{
+                  width: '100%',
+                  display: 'block',
+                  transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'scale(1.05)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'scale(1)';
+                }}
+              />
+
+              {/* Badge officiel de tarif selon la consigne exacte de l'utilisateur */}
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: '12px',
+                  left: '12px',
+                  background: 'rgba(18, 14, 12, 0.9)',
+                  backdropFilter: 'blur(10px)',
+                  WebkitBackdropFilter: 'blur(10px)',
+                  padding: '7px 16px',
+                  borderRadius: 'var(--radius-pill)',
+                  border: '1.5px solid rgba(212, 175, 55, 0.6)',
+                  fontSize: '0.82rem',
+                  color: 'var(--gold-light)',
+                  letterSpacing: '0.06em',
+                  fontWeight: 700,
+                  boxShadow: '0 4px 15px rgba(0, 0, 0, 0.7)'
+                }}
+              >
+                Prix demi pièce : 5.500 FCFA
+              </div>
+
+              {/* Icône d'agrandissement en haut à droite */}
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '12px',
+                  right: '12px',
+                  background: 'rgba(18, 14, 12, 0.8)',
+                  backdropFilter: 'blur(10px)',
+                  borderRadius: '50%',
+                  width: '32px',
+                  height: '32px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  border: '1px solid rgba(212, 175, 55, 0.5)',
+                  color: 'var(--gold-light)',
+                  fontSize: '0.85rem'
+                }}
+              >
+                ⤢
+              </div>
             </div>
           </div>
         </div>

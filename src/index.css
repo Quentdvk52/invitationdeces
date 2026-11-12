@@ -176,6 +176,55 @@ body::before {
 .ornament-bottom-right { bottom: 12px; right: 12px; border-left: none; border-top: none; }
 
 /* ==========================================================================
+   CADRES PHOTOS LUMINEUX & BORDURES ANIMÉES ÉTINCELANTES
+   ========================================================================== */
+
+@keyframes luminousGlow {
+  0% {
+    background-position: 0% 50%;
+    box-shadow: 
+      0 15px 45px rgba(0, 0, 0, 0.8),
+      0 0 25px rgba(212, 175, 55, 0.35);
+  }
+  50% {
+    background-position: 100% 50%;
+    box-shadow: 
+      0 20px 55px rgba(0, 0, 0, 0.9),
+      0 0 45px rgba(243, 220, 140, 0.65),
+      inset 0 0 20px rgba(255, 240, 210, 0.3);
+  }
+  100% {
+    background-position: 0% 50%;
+    box-shadow: 
+      0 15px 45px rgba(0, 0, 0, 0.8),
+      0 0 25px rgba(212, 175, 55, 0.35);
+  }
+}
+
+.luminous-photo-card {
+  position: relative;
+  border-radius: var(--radius-inner);
+  padding: 3.5px;
+  background: linear-gradient(135deg, #FFFDF9 0%, #D4AF37 25%, #8F661B 50%, #F3DC8C 75%, #FFFDF9 100%);
+  background-size: 300% 300%;
+  animation: luminousGlow 5.5s ease-in-out infinite;
+  cursor: pointer;
+  transition: transform var(--transition-spring), box-shadow var(--transition-spring);
+}
+
+.luminous-photo-card:hover {
+  transform: translateY(-4px) scale(1.015);
+  box-shadow: 
+    0 25px 65px rgba(0, 0, 0, 0.95),
+    0 0 50px rgba(243, 220, 140, 0.8);
+}
+
+.floral-rectangle-wrapper {
+  position: relative;
+  filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.7));
+}
+
+/* ==========================================================================
    TYPOGRAPHIE & TITRES POÉTIQUES
    ========================================================================== */
 

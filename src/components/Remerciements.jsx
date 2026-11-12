@@ -1,8 +1,19 @@
 import { motion } from 'motion/react';
 import { MEDIA_URLS } from '../constants/media';
 import AudioPlayer from './AudioPlayer';
+import { useLightbox } from '../context/LightboxContext';
 
 export default function Remerciements() {
+  const { openLightbox } = useLightbox();
+
+  const handleOpenSouvenir = (src, index) => {
+    openLightbox({
+      type: 'image',
+      src,
+      alt: `Souvenir de recueillement et mémoire émouvante #${index}`
+    });
+  };
+
   return (
     <section
       id="remerciements"
@@ -31,13 +42,13 @@ export default function Remerciements() {
         style={{ marginBottom: 'var(--space-2xl)' }}
       >
         <AudioPlayer
-          src={MEDIA_URLS.audio.thanks}
+          trackId="thanks"
           trackName="Musique de remerciements"
           subtitle="Chant de consolation et d'action de grâce"
         />
       </motion.div>
 
-      {/* Galerie de Souvenirs Inoubliables - Bento Nacré & Doré */}
+      {/* Galerie de Souvenirs Inoubliables - Photos Lumineuses sans titres surimposés */}
       <motion.div
         initial={{ opacity: 0, y: 35 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -50,11 +61,22 @@ export default function Remerciements() {
           marginBottom: 'var(--space-2xl)'
         }}
       >
-        <div className="luxury-card">
-          <div className="luxury-card-inner" style={{ padding: '10px' }}>
+        {/* Photo Souvenir 1 */}
+        <div
+          className="luminous-photo-card"
+          onClick={() => handleOpenSouvenir(MEDIA_URLS.images.souvenir1, 1)}
+          title="Cliquer pour afficher la photo en grand"
+        >
+          <div
+            style={{
+              padding: '6px',
+              background: '#120F0D',
+              borderRadius: 'calc(var(--radius-inner) - 2px)'
+            }}
+          >
             <div
               style={{
-                borderRadius: 'calc(var(--radius-inner) - 4px)',
+                borderRadius: 'calc(var(--radius-inner) - 6px)',
                 overflow: 'hidden',
                 position: 'relative',
                 boxShadow: '0 15px 35px rgba(0, 0, 0, 0.7)'
@@ -63,32 +85,60 @@ export default function Remerciements() {
               <img
                 src={MEDIA_URLS.images.souvenir1}
                 alt="Souvenir mémorable 1"
-                style={{ width: '100%', height: '340px', objectFit: 'cover', display: 'block' }}
+                style={{
+                  width: '100%',
+                  height: '350px',
+                  objectFit: 'cover',
+                  display: 'block',
+                  transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'scale(1.04)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'scale(1)';
+                }}
               />
               <div
                 style={{
                   position: 'absolute',
-                  bottom: '10px',
-                  left: '10px',
-                  background: 'rgba(18, 14, 12, 0.85)',
+                  top: '12px',
+                  right: '12px',
+                  background: 'rgba(18, 14, 12, 0.8)',
                   backdropFilter: 'blur(10px)',
-                  padding: '4px 12px',
-                  borderRadius: 'var(--radius-pill)',
-                  fontSize: '0.75rem',
-                  color: 'var(--gold-light)'
+                  borderRadius: '50%',
+                  width: '32px',
+                  height: '32px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  border: '1px solid rgba(212, 175, 55, 0.5)',
+                  color: 'var(--gold-light)',
+                  fontSize: '0.85rem'
                 }}
               >
-                Moments Précieux
+                ⤢
               </div>
             </div>
           </div>
         </div>
 
-        <div className="luxury-card">
-          <div className="luxury-card-inner" style={{ padding: '10px' }}>
+        {/* Photo Souvenir 2 */}
+        <div
+          className="luminous-photo-card"
+          onClick={() => handleOpenSouvenir(MEDIA_URLS.images.souvenir2, 2)}
+          title="Cliquer pour afficher la photo en grand"
+        >
+          <div
+            style={{
+              padding: '6px',
+              background: '#120F0D',
+              borderRadius: 'calc(var(--radius-inner) - 2px)'
+            }}
+          >
             <div
               style={{
-                borderRadius: 'calc(var(--radius-inner) - 4px)',
+                borderRadius: 'calc(var(--radius-inner) - 6px)',
                 overflow: 'hidden',
                 position: 'relative',
                 boxShadow: '0 15px 35px rgba(0, 0, 0, 0.7)'
@@ -97,22 +147,39 @@ export default function Remerciements() {
               <img
                 src={MEDIA_URLS.images.souvenir2}
                 alt="Souvenir mémorable 2"
-                style={{ width: '100%', height: '340px', objectFit: 'cover', display: 'block' }}
+                style={{
+                  width: '100%',
+                  height: '350px',
+                  objectFit: 'cover',
+                  display: 'block',
+                  transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'scale(1.04)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'scale(1)';
+                }}
               />
               <div
                 style={{
                   position: 'absolute',
-                  bottom: '10px',
-                  left: '10px',
-                  background: 'rgba(18, 14, 12, 0.85)',
+                  top: '12px',
+                  right: '12px',
+                  background: 'rgba(18, 14, 12, 0.8)',
                   backdropFilter: 'blur(10px)',
-                  padding: '4px 12px',
-                  borderRadius: 'var(--radius-pill)',
-                  fontSize: '0.75rem',
-                  color: 'var(--gold-light)'
+                  borderRadius: '50%',
+                  width: '32px',
+                  height: '32px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  border: '1px solid rgba(212, 175, 55, 0.5)',
+                  color: 'var(--gold-light)',
+                  fontSize: '0.85rem'
                 }}
               >
-                Mémoire Éternelle
+                ⤢
               </div>
             </div>
           </div>

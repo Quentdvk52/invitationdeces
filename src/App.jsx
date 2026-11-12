@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { MEDIA_URLS } from './constants/media';
 import ThreeScene from './components/ThreeScene';
 import Loader from './components/Loader';
 import Header from './components/Header';
@@ -14,6 +13,8 @@ import Remerciements from './components/Remerciements';
 import MenuCarousel from './components/MenuCarousel';
 import Footer from './components/Footer';
 import ErrorBoundary from './components/ErrorBoundary';
+import { AudioProvider } from './context/AudioContext';
+import { LightboxProvider } from './context/LightboxContext';
 import './index.css';
 
 function AppContent() {
@@ -21,10 +22,12 @@ function AppContent() {
   const [headerVisible, setHeaderVisible] = useState(false);
 
   const handleLoaderComplete = () => {
+    setLoaderVisible(false);
     setHeaderVisible(true);
   };
 
   useEffect(() => {
+    // Gestion du défilement doux vers les ancres
     const handleAnchorClick = (e) => {
       const href = e.currentTarget.getAttribute('href');
       if (href && href.startsWith('#')) {
@@ -56,7 +59,7 @@ function AppContent() {
       {/* Univers 3D immersif céleste (Three.js) */}
       <ThreeScene />
 
-      {/* Écran d'accueil et d'élévation poétique */}
+      {/* Écran d'accueil poétique avec déclenchement audio automatique */}
       <Loader visible={loaderVisible} onComplete={handleLoaderComplete} />
 
       {/* Header en îlot flottant détachable */}
@@ -65,7 +68,7 @@ function AppContent() {
       {/* Contenu principal de l'hommage */}
       <div style={{ position: 'relative', zIndex: 1 }}>
         <main>
-          <Hero setLoaderVisible={setLoaderVisible} />
+          <Hero />
 
           {/* Section d'Introduction Musicale Sacrée */}
           <section
@@ -93,10 +96,9 @@ function AppContent() {
             </div>
 
             <AudioPlayer
-              src={MEDIA_URLS.audio.main}
+              trackId="recueillement"
               trackName="Musique de recueillement"
               subtitle="Méditation solennelle & hommage filial"
-              autoPlay={false}
             />
           </section>
 
@@ -125,7 +127,11 @@ function AppContent() {
 export default function App() {
   return (
     <ErrorBoundary fallback={<div className="fatal-error">Une erreur est survenue lors du chargement de l'hommage.</div>}>
-      <AppContent />
+      <AudioProvider>
+        <LightboxProvider>
+          <AppContent />
+        </LightboxProvider>
+      </AudioProvider>
     </ErrorBoundary>
   );
 }

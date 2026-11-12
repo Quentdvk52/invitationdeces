@@ -1,7 +1,18 @@
 import { motion } from 'motion/react';
 import { MEDIA_URLS, SITE_DATA } from '../constants/media';
+import { useLightbox } from '../context/LightboxContext';
 
 export default function Localisation() {
+  const { openLightbox } = useLightbox();
+
+  const handleOpenVideo = () => {
+    openLightbox({
+      type: 'video',
+      src: MEDIA_URLS.video.location,
+      alt: "Vidéo guide d'itinéraire d'accès — Cs Gnidjaszoun"
+    });
+  };
+
   return (
     <section
       id="localisation"
@@ -97,7 +108,7 @@ export default function Localisation() {
           </div>
         </motion.div>
 
-        {/* Vidéo Guide de l'Itinéraire */}
+        {/* Vidéo Guide de l'Itinéraire avec option plein écran */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -127,17 +138,18 @@ export default function Localisation() {
               >
                 <span>🎥</span> Vidéo Guide d'Itinéraire
               </h3>
-              <span
+              <button
+                onClick={handleOpenVideo}
+                className="btn-royal"
                 style={{
+                  padding: '4px 12px',
                   fontSize: '0.75rem',
-                  color: 'var(--gold-light)',
-                  background: 'rgba(212, 175, 55, 0.15)',
-                  padding: '3px 8px',
-                  borderRadius: '10px'
+                  cursor: 'pointer'
                 }}
               >
-                Repères visuels
-              </span>
+                <span>Plein écran</span>
+                <span>⤢</span>
+              </button>
             </div>
 
             <div
@@ -148,15 +160,18 @@ export default function Localisation() {
                 overflow: 'hidden',
                 border: '1.5px solid rgba(212, 175, 55, 0.4)',
                 boxShadow: '0 10px 30px rgba(0, 0, 0, 0.7)',
-                background: '#0A0807'
+                background: '#0A0807',
+                position: 'relative',
+                cursor: 'pointer'
               }}
+              onClick={handleOpenVideo}
+              title="Cliquer pour regarder en plein écran"
             >
               <video
                 autoPlay
                 muted
                 loop
                 playsInline
-                controls
                 style={{
                   width: '100%',
                   height: '100%',
@@ -166,6 +181,40 @@ export default function Localisation() {
                 <source src={MEDIA_URLS.video.location} type="video/mp4" />
                 Votre appareil ne supporte pas la vidéo.
               </video>
+              <div
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  background: 'rgba(0, 0, 0, 0.2)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: 'background 0.3s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(0, 0, 0, 0.05)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(0, 0, 0, 0.2)';
+                }}
+              >
+                <div
+                  style={{
+                    background: 'rgba(18, 14, 12, 0.85)',
+                    backdropFilter: 'blur(10px)',
+                    border: '1.5px solid var(--gold-light)',
+                    borderRadius: 'var(--radius-pill)',
+                    padding: '8px 18px',
+                    color: 'var(--gold-light)',
+                    fontSize: '0.82rem',
+                    fontWeight: 600,
+                    letterSpacing: '0.08em',
+                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.8)'
+                  }}
+                >
+                  ▶ Cliquer pour Agrandir
+                </div>
+              </div>
             </div>
           </div>
         </motion.div>
