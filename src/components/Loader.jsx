@@ -1,6 +1,7 @@
 import { useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useAudio } from '../context/AudioContext';
+import CelestialAngel from './CelestialAngel';
 
 export default function Loader({ visible, onComplete }) {
   const { startAutoSequence } = useAudio();
@@ -77,10 +78,8 @@ export default function Loader({ visible, onComplete }) {
               zIndex: 1
             }}
           >
-            {/* Emblème colombe et dorure */}
-            <div style={{ fontSize: '2.8rem', marginBottom: '0.8rem', filter: 'drop-shadow(0 0 20px rgba(212, 175, 55, 0.7))' }}>
-              🕊️
-            </div>
+            {/* Ange Céleste aux ailes battantes et halo lumineux */}
+            <CelestialAngel size="clamp(115px, 24vw, 150px)" />
 
             <div
               className="poetic-script"

@@ -11,6 +11,7 @@ import Localisation from './components/Localisation';
 import Tissus from './components/Tissus';
 import Remerciements from './components/Remerciements';
 import MenuCarousel from './components/MenuCarousel';
+import MemorialPoster from './components/MemorialPoster';
 import Footer from './components/Footer';
 import ErrorBoundary from './components/ErrorBoundary';
 import { AudioProvider } from './context/AudioContext';
@@ -113,6 +114,8 @@ function AppContent() {
           <Remerciements />
 
           <MenuCarousel />
+
+          <MemorialPoster />
         </main>
 
         <Footer />

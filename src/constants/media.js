@@ -7,6 +7,7 @@ export const MEDIA_URLS = {
     tissue: '/assets/images/tissue.jpg',
     souvenir1: '/assets/images/souvenir1.jpg',
     souvenir2: '/assets/images/souvenir2.jpg',
+    poster: '/assets/images/poster.jpg',
     menu: [
       '/assets/images/menu/62e133dca66a0-sobebra.webp',
       '/assets/images/menu/Sobebra-1-jpg.webp',
