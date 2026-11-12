@@ -103,7 +103,20 @@ export default function MediaLightbox({ media, onClose }) {
                   src={media.src}
                   controls
                   autoPlay
+                  loop
                   playsInline
+                  muted
+                  defaultMuted
+                  controlsList="nodownload nofullscreen"
+                  onVolumeChange={(e) => {
+                    // Maintien strict du son coupé : ne coupe jamais la musique du site
+                    e.currentTarget.muted = true;
+                    e.currentTarget.volume = 0;
+                  }}
+                  onPlay={(e) => {
+                    e.currentTarget.muted = true;
+                    e.currentTarget.volume = 0;
+                  }}
                   style={{
                     maxWidth: '88vw',
                     maxHeight: '80vh',
@@ -127,20 +140,43 @@ export default function MediaLightbox({ media, onClose }) {
             </div>
           </motion.div>
 
-          {media.alt && (
+          {/* Description ou mention sonore pour la vidéo */}
+          {media.type === 'video' ? (
             <div
               style={{
                 marginTop: '16px',
+                background: 'rgba(18, 14, 12, 0.85)',
+                border: '1px solid rgba(212, 175, 55, 0.4)',
+                borderRadius: 'var(--radius-pill)',
+                padding: '6px 16px',
                 color: 'var(--gold-light)',
-                fontFamily: 'var(--font-serif)',
-                fontStyle: 'italic',
-                fontSize: '1.05rem',
-                textAlign: 'center',
-                maxWidth: '600px'
+                fontFamily: 'var(--font-body)',
+                fontSize: '0.82rem',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                boxShadow: '0 4px 15px rgba(0, 0, 0, 0.5)'
               }}
             >
-              {media.alt}
+              <span>🔇</span>
+              <span>Vidéo muette • La musique d'hommage continue en arrière-plan</span>
             </div>
+          ) : (
+            media.alt && (
+              <div
+                style={{
+                  marginTop: '16px',
+                  color: 'var(--gold-light)',
+                  fontFamily: 'var(--font-serif)',
+                  fontStyle: 'italic',
+                  fontSize: '1.05rem',
+                  textAlign: 'center',
+                  maxWidth: '600px'
+                }}
+              >
+                {media.alt}
+              </div>
+            )
           )}
         </motion.div>
       )}

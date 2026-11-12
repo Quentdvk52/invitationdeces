@@ -170,8 +170,17 @@ export default function Localisation() {
               <video
                 autoPlay
                 muted
+                defaultMuted
                 loop
                 playsInline
+                onVolumeChange={(e) => {
+                  e.currentTarget.muted = true;
+                  e.currentTarget.volume = 0;
+                }}
+                onPlay={(e) => {
+                  e.currentTarget.muted = true;
+                  e.currentTarget.volume = 0;
+                }}
                 style={{
                   width: '100%',
                   height: '100%',
