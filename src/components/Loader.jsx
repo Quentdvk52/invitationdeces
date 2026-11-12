@@ -1,18 +1,35 @@
+import { useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useAudio } from '../context/AudioContext';
 
 export default function Loader({ visible, onComplete }) {
   const { startAutoSequence } = useAudio();
+  const hasEnteredRef = useRef(false);
 
-  const handleEnter = () => {
-    // Déclenche l'enchaînement automatique musical dès l'interaction d'entrée
+  const handleEnter = useCallback(() => {
+    if (hasEnteredRef.current) return;
+    hasEnteredRef.current = true;
+
+    // Déclenche l'enchaînement musical automatique
     try {
       startAutoSequence();
     } catch (e) {
       console.warn('[Loader] startAutoSequence warning:', e);
     }
     onComplete();
-  };
+  }, [startAutoSequence, onComplete]);
+
+  // Si la personne ne clique pas après 8 secondes, déclenchement automatique
+  useEffect(() => {
+    if (!visible) return;
+
+    const timer = setTimeout(() => {
+      console.log('[Loader] 8 secondes écoulées sans action -> Déclenchement automatique de l\'entrée');
+      handleEnter();
+    }, 8000);
+
+    return () => clearTimeout(timer);
+  }, [visible, handleEnter]);
 
   return (
     <AnimatePresence>
@@ -100,26 +117,26 @@ export default function Loader({ visible, onComplete }) {
               Une invitation sacrée à célébrer une vie de paix et de dévouement
             </p>
 
-            {/* Barre de chargement avec filigrane d'or */}
+            {/* Barre de progression synchronisée sur les 8 secondes d'entrée automatique */}
             <div
               style={{
-                width: '240px',
-                height: '2px',
+                width: '260px',
+                height: '3px',
                 background: 'rgba(255, 255, 255, 0.12)',
                 margin: '0 auto 1.6rem',
-                borderRadius: '2px',
+                borderRadius: '3px',
                 overflow: 'hidden',
                 position: 'relative'
               }}
             >
               <motion.div
-                initial={{ x: '-100%' }}
-                animate={{ x: '100%' }}
-                transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+                initial={{ width: '0%' }}
+                animate={{ width: '100%' }}
+                transition={{ duration: 8, ease: 'linear' }}
                 style={{
-                  width: '60%',
                   height: '100%',
-                  background: 'linear-gradient(90deg, transparent, var(--gold-light), transparent)'
+                  background: 'linear-gradient(90deg, var(--gold-warm), var(--gold-light), #FFF5DF)',
+                  boxShadow: '0 0 10px rgba(212, 175, 55, 0.8)'
                 }}
               />
             </div>
@@ -145,14 +162,14 @@ export default function Loader({ visible, onComplete }) {
             <div
               style={{
                 fontSize: '0.78rem',
-                letterSpacing: '0.22em',
+                letterSpacing: '0.16em',
                 textTransform: 'uppercase',
                 color: 'var(--gold-light)',
                 fontWeight: 600,
                 opacity: 0.85
               }}
             >
-              Touchez l'écran pour écouter & entrer
+              Touchez l'écran ou ouverture automatique (8s)
             </div>
           </motion.div>
         </motion.div>

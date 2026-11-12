@@ -66,8 +66,23 @@ export function AudioProvider({ children }) {
       promise
         .then(() => setIsPlaying(true))
         .catch((err) => {
-          console.warn('[AudioContext] Lecture reportée par le navigateur:', err);
+          console.warn('[AudioContext] Lecture reportée par le navigateur (autoplay policy):', err);
           setIsPlaying(false);
+
+          // Si le navigateur bloque l'autoplay non-gestuel après les 8s,
+          // on réarme la lecture immédiatement au tout premier contact utilisateur
+          const handleFirstGesture = () => {
+            if (!isManualOverride && isAutoSequenceActiveRef.current) {
+              audio.play().then(() => setIsPlaying(true)).catch(() => {});
+            }
+            window.removeEventListener('click', handleFirstGesture);
+            window.removeEventListener('touchstart', handleFirstGesture);
+            window.removeEventListener('scroll', handleFirstGesture);
+          };
+
+          window.addEventListener('click', handleFirstGesture, { once: true });
+          window.addEventListener('touchstart', handleFirstGesture, { once: true });
+          window.addEventListener('scroll', handleFirstGesture, { once: true });
         });
     }
   }, []);
