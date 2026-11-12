@@ -24,7 +24,6 @@ function AppContent() {
     setHeaderVisible(true);
   };
 
-  // Smooth scroll handler
   useEffect(() => {
     const handleAnchorClick = (e) => {
       const href = e.currentTarget.getAttribute('href');
@@ -54,36 +53,49 @@ function AppContent() {
 
   return (
     <>
-      {/* Scène 3D d'arrière-plan immersive */}
+      {/* Univers 3D immersif céleste (Three.js) */}
       <ThreeScene />
 
-      {/* Écran de chargement élégant */}
+      {/* Écran d'accueil et d'élévation poétique */}
       <Loader visible={loaderVisible} onComplete={handleLoaderComplete} />
 
-      {/* Navigation Desktop */}
-      {headerVisible && <Header className="desktop-header" />}
+      {/* Header en îlot flottant détachable */}
+      {headerVisible && <Header />}
 
-      {/* Contenu principal */}
-      <div className="site-wrapper" style={{ position: 'relative', zIndex: 1 }}>
+      {/* Contenu principal de l'hommage */}
+      <div style={{ position: 'relative', zIndex: 1 }}>
         <main>
           <Hero setLoaderVisible={setLoaderVisible} />
 
-          {/* Audio Section 1 - Musique de recueillement */}
+          {/* Section d'Introduction Musicale Sacrée */}
           <section
             id="audio1"
             style={{
-              background: 'rgba(26, 26, 26, 0.85)',
-              backdropFilter: 'blur(16px)',
-              WebkitBackdropFilter: 'blur(16px)',
-              padding: 'var(--spacing-2xl) var(--spacing-md)',
+              padding: 'var(--space-2xl) var(--space-md)',
               textAlign: 'center',
-              borderTop: '2px solid var(--color-gold)',
-              borderBottom: '2px solid var(--color-gold)'
+              position: 'relative'
             }}
           >
+            <div style={{ maxWidth: '650px', margin: '0 auto var(--space-lg)' }}>
+              <div className="section-eyebrow">
+                <span>🎵</span> Recueillement Spirituel
+              </div>
+              <p
+                style={{
+                  fontFamily: 'var(--font-serif)',
+                  fontStyle: 'italic',
+                  fontSize: '1.15rem',
+                  color: 'var(--text-secondary)'
+                }}
+              >
+                Laissez-vous porter par cette mélodie sacrée qui a bercé ses prières et ses moments de paix.
+              </p>
+            </div>
+
             <AudioPlayer
               src={MEDIA_URLS.audio.main}
               trackName="Musique de recueillement"
+              subtitle="Méditation solennelle & hommage filial"
               autoPlay={false}
             />
           </section>
@@ -104,7 +116,7 @@ function AppContent() {
         <Footer />
       </div>
 
-      {/* Navigation Mobile en bas */}
+      {/* Dock de navigation mobile luxe */}
       <MobileNav />
     </>
   );

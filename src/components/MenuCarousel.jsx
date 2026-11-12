@@ -6,72 +6,73 @@ export default function MenuCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const trackRef = useRef(null);
 
+  const scrollToIndex = (index) => {
+    const images = trackRef.current?.querySelectorAll('.menu-showcase-card');
+    if (images && images[index]) {
+      images[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      setCurrentIndex(index);
+    }
+  };
+
   const handlePrev = () => {
     if (currentIndex > 0) {
-      const nextIndex = currentIndex - 1;
-      setCurrentIndex(nextIndex);
-      const images = trackRef.current?.querySelectorAll('img');
-      if (images && images[nextIndex]) {
-        images[nextIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-      }
+      scrollToIndex(currentIndex - 1);
+    } else {
+      scrollToIndex(MEDIA_URLS.images.menu.length - 1);
     }
   };
 
   const handleNext = () => {
     if (currentIndex < MEDIA_URLS.images.menu.length - 1) {
-      const nextIndex = currentIndex + 1;
-      setCurrentIndex(nextIndex);
-      const images = trackRef.current?.querySelectorAll('img');
-      if (images && images[nextIndex]) {
-        images[nextIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-      }
+      scrollToIndex(currentIndex + 1);
+    } else {
+      scrollToIndex(0);
     }
   };
+
+  // Noms soignés pour chaque met
+  const dishLabels = [
+    "Rafraîchissements Sobebra",
+    "Boissons & Sélection Prestige",
+    "Akassa au Poisson Braisé",
+    "Blokoto Traditionnel",
+    "Chichanga Savoureux",
+    "Plat Festif d'Honneur",
+    "Délice Cérémonial",
+    "Entrée Délicate",
+    "Hors d'œuvre d'Accueil",
+    "Riz au Gras Festif",
+    "Télibo aux Légumes"
+  ];
 
   return (
     <section
       id="menu"
       style={{
-        background: 'rgba(18, 18, 18, 0.85)',
-        backdropFilter: 'blur(16px)',
-        WebkitBackdropFilter: 'blur(16px)',
-        padding: 'var(--spacing-2xl) var(--spacing-md)',
+        padding: 'var(--space-3xl) var(--space-md)',
+        maxWidth: '1200px',
+        margin: '0 auto',
         textAlign: 'center',
-        borderBottom: '2px solid var(--color-gold)'
+        position: 'relative'
       }}
     >
-      <motion.h2
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-100px' }}
-        transition={{ duration: 1 }}
-        className="section-title"
-      >
-        Au menu
-      </motion.h2>
+      <div className="section-eyebrow">
+        <span>🍷</span> Agapes Fraternelles
+      </div>
+      <h2 className="section-title">Au Menu de la Réception</h2>
+      <p className="section-subtitle">
+        Un hommage gastronomique raffiné offert avec générosité pour partager ensemble ce moment de mémoire.
+      </p>
 
-      <motion.p
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-100px' }}
-        transition={{ duration: 1, delay: 0.1 }}
-        style={{ color: 'var(--color-muted)', fontSize: '1rem', marginBottom: 'var(--spacing-md)' }}
-      >
-        Aperçu des mets et rafraîchissements prévus pour la réception
-      </motion.p>
-
+      {/* Conteneur Carrousel avec Flèches de Navigation */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 35 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-100px' }}
-        transition={{ duration: 1, delay: 0.2 }}
+        viewport={{ once: true, margin: '-60px' }}
+        transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
         style={{
-          overflow: 'hidden',
-          marginTop: 'var(--spacing-lg)',
-          maxWidth: '750px',
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          position: 'relative'
+          position: 'relative',
+          marginTop: 'var(--space-lg)'
         }}
       >
         <button
@@ -80,65 +81,26 @@ export default function MenuCarousel() {
           style={{
             position: 'absolute',
             top: '50%',
+            left: '10px',
             transform: 'translateY(-50%)',
-            background: 'var(--color-gold)',
-            color: 'var(--color-black)',
-            border: 'none',
             width: '46px',
             height: '46px',
             borderRadius: '50%',
-            fontSize: '1.4rem',
+            background: 'linear-gradient(135deg, var(--gold-light), var(--gold-warm))',
+            border: 'none',
+            color: '#120F0D',
+            fontSize: '1.5rem',
             fontWeight: 'bold',
-            cursor: 'pointer',
-            zIndex: 10,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            left: '12px',
-            boxShadow: '0 4px 15px rgba(0,0,0,0.6)'
-          }}
-          className="menu-arrow menu-arrow-left"
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'var(--color-gold-light)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'var(--color-gold)';
+            cursor: 'pointer',
+            zIndex: 10,
+            boxShadow: '0 8px 25px rgba(0, 0, 0, 0.8), 0 0 15px rgba(212, 175, 55, 0.4)'
           }}
         >
           ‹
         </button>
-
-        <div
-          ref={trackRef}
-          className="menu-track"
-          style={{
-            display: 'flex',
-            gap: '12px'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.animationPlayState = 'paused';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.animationPlayState = 'running';
-          }}
-        >
-          {MEDIA_URLS.images.menu.map((src, index) => (
-            <img
-              key={index}
-              src={src}
-              alt={`Mets de réception ${index + 1}`}
-              style={{
-                width: '460px',
-                height: '320px',
-                objectFit: 'cover',
-                border: '2px solid rgba(212, 175, 55, 0.7)',
-                borderRadius: 'var(--spacing-sm)',
-                flexShrink: 0,
-                boxShadow: '0 10px 25px rgba(0,0,0,0.5)'
-              }}
-            />
-          ))}
-        </div>
 
         <button
           onClick={handleNext}
@@ -146,33 +108,92 @@ export default function MenuCarousel() {
           style={{
             position: 'absolute',
             top: '50%',
+            right: '10px',
             transform: 'translateY(-50%)',
-            background: 'var(--color-gold)',
-            color: 'var(--color-black)',
-            border: 'none',
             width: '46px',
             height: '46px',
             borderRadius: '50%',
-            fontSize: '1.4rem',
+            background: 'linear-gradient(135deg, var(--gold-light), var(--gold-warm))',
+            border: 'none',
+            color: '#120F0D',
+            fontSize: '1.5rem',
             fontWeight: 'bold',
-            cursor: 'pointer',
-            zIndex: 10,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            right: '12px',
-            boxShadow: '0 4px 15px rgba(0,0,0,0.6)'
-          }}
-          className="menu-arrow menu-arrow-right"
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'var(--color-gold-light)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'var(--color-gold)';
+            cursor: 'pointer',
+            zIndex: 10,
+            boxShadow: '0 8px 25px rgba(0, 0, 0, 0.8), 0 0 15px rgba(212, 175, 55, 0.4)'
           }}
         >
           ›
         </button>
+
+        <div
+          ref={trackRef}
+          className="menu-track"
+          style={{
+            display: 'flex',
+            gap: '16px',
+            overflowX: 'auto',
+            scrollSnapType: 'x mandatory',
+            padding: '20px 10px',
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none'
+          }}
+        >
+          {MEDIA_URLS.images.menu.map((src, idx) => (
+            <div
+              key={idx}
+              className="menu-showcase-card"
+              style={{
+                scrollSnapAlign: 'center',
+                position: 'relative'
+              }}
+            >
+              <img
+                src={src}
+                alt={dishLabels[idx] || `Plat ${idx + 1}`}
+                loading="lazy"
+              />
+              <div
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  background: 'linear-gradient(to top, rgba(14, 11, 9, 0.95) 0%, rgba(14, 11, 9, 0.2) 40%, transparent 70%)',
+                  display: 'flex',
+                  alignItems: 'flex-end',
+                  padding: '16px'
+                }}
+              >
+                <div style={{ textAlign: 'left', width: '100%' }}>
+                  <div
+                    style={{
+                      fontSize: '0.72rem',
+                      color: 'var(--gold-light)',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.12em',
+                      fontWeight: 600,
+                      marginBottom: '2px'
+                    }}
+                  >
+                    Mets de Cérémonie #{idx + 1}
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: 'var(--font-display)',
+                      fontSize: '1.1rem',
+                      color: 'var(--pearl-white)',
+                      letterSpacing: '0.04em'
+                    }}
+                  >
+                    {dishLabels[idx] || `Spécialité #${idx + 1}`}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </motion.div>
     </section>
   );

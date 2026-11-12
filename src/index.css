@@ -1,33 +1,67 @@
-/* Google Fonts import */
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Bebas+Neue&family=Source+Sans+3:wght@300;400;500;600;700&display=swap');
+/* ==========================================================================
+   PALETTE DE LUMIÈRE & DORURES DOUCES (EXPÉRIENCE LUXE & POÉTIQUE)
+   ========================================================================== */
 
 :root {
-  --color-black: #000000;
-  --color-dark: #0A0A0A;
-  --color-dark-gray: #141414;
-  --color-gray: #242424;
-  --color-gold: #D4AF37;
-  --color-gold-light: #F4D03F;
-  --color-gold-dark: #B8960C;
-  --color-white: #FFFFFF;
-  --color-muted: #A0A0A0;
-  --color-border: #333333;
+  /* Nuances sombres chaudes (fond velours nuit & expresso profond) */
+  --color-bg-base: #0A0807;
+  --color-bg-surface: #120F0D;
+  --color-bg-elevated: #1A1613;
+  --color-bg-card: rgba(22, 18, 15, 0.72);
+  --color-bg-card-hover: rgba(30, 24, 20, 0.85);
 
-  --font-display: 'Bebas Neue', Impact, sans-serif;
-  --font-body: 'Source Sans 3', system-ui, sans-serif;
+  /* Dorures chaudes & douces */
+  --gold-primary: #D4AF37;
+  --gold-light: #F3DC8C;
+  --gold-shimmer: #FFF2BD;
+  --gold-warm: #C8963E;
+  --gold-dark: #8F661B;
+  --gold-border: rgba(212, 175, 55, 0.35);
+  --gold-border-glow: rgba(212, 175, 55, 0.65);
+
+  /* Reflets Nacrés & Ivoire Opale */
+  --pearl-white: #FFFDF9;
+  --pearl-ivory: #FDF6E9;
+  --pearl-rose: #FFF0E6;
+  --pearl-glow: rgba(255, 248, 238, 0.18);
+  --pearl-sheen: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(212, 175, 55, 0.35) 50%, rgba(255, 240, 230, 0.2) 100%);
+
+  /* Texte & Accents */
+  --text-primary: #FFFDF9;
+  --text-secondary: #D4C7B8;
+  --text-muted: #96897B;
+  --text-gold: #E5C378;
+
+  /* Typographies Premium */
+  --font-display: 'Cinzel', Georgia, serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
   --font-script: 'Great Vibes', cursive;
-  --font-serif: 'Cinzel', Georgia, serif;
+  --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-accent: 'Bebas Neue', Impact, sans-serif;
 
-  --spacing-xs: 0.5rem;
-  --spacing-sm: 1rem;
-  --spacing-md: 1.5rem;
-  --spacing-lg: 2rem;
-  --spacing-xl: 3rem;
-  --spacing-2xl: 4rem;
-  --spacing-3xl: 6rem;
+  /* Espacements */
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.875rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.25rem;
+  --space-xl: 3.5rem;
+  --space-2xl: 5rem;
+  --space-3xl: 7.5rem;
 
-  --transition-normal: 0.35s ease;
+  /* Rayons concentriques (Double-Bezel Architecture) */
+  --radius-outer: 28px;
+  --radius-inner: 22px;
+  --radius-pill: 9999px;
+
+  /* Transitions cinématiques */
+  --transition-spring: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
+
+/* ==========================================================================
+   RESET & FOND GLOBAL ÉVOQUANT UN CIEL ÉTOILÉ CHAUD
+   ========================================================================== */
 
 * {
   margin: 0;
@@ -37,259 +71,581 @@
 
 html {
   scroll-behavior: smooth;
-  background-color: #050505;
+  background-color: var(--color-bg-base);
+  color-scheme: dark;
 }
 
 body {
   font-family: var(--font-body);
-  background-color: #050505;
-  color: var(--color-white);
-  line-height: 1.6;
+  background-color: var(--color-bg-base);
+  color: var(--text-primary);
+  line-height: 1.65;
   font-size: 16px;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   padding-bottom: 70px;
 }
 
-@media (max-width: 768px) {
-  body {
-    font-size: 15px;
-  }
+/* Fond lumineux avec aurore ambrée chaleureuse */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 50% 15%, rgba(212, 175, 55, 0.12) 0%, transparent 60%),
+    radial-gradient(circle at 20% 50%, rgba(200, 150, 62, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(255, 230, 180, 0.06) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
 }
 
-/* Custom Scrollbar */
+/* Scrollbar raffinée en or brossé */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 7px;
 }
-
 ::-webkit-scrollbar-track {
-  background: #0A0A0A;
+  background: var(--color-bg-base);
 }
-
 ::-webkit-scrollbar-thumb {
-  background: var(--color-gold);
+  background: linear-gradient(180deg, var(--gold-light), var(--gold-warm));
   border-radius: 4px;
 }
 
-/* Focus styles */
-:focus-visible {
-  outline: 2px solid var(--color-gold);
-  outline-offset: 4px;
-}
+/* ==========================================================================
+   DÉCORATIONS, CADRAGES & DOUBLE-BEZEL (DOPPELRAND)
+   ========================================================================== */
 
-/* Typography */
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 600;
-  line-height: 1.2;
-}
-
-p {
-  margin-bottom: 1rem;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-/* Section base styles */
-section {
-  width: 100%;
+/* Carte double-bezel luxe avec reflets nacrés */
+.luxury-card {
   position: relative;
-  box-sizing: border-box;
+  border-radius: var(--radius-outer);
+  padding: 3px;
+  background: linear-gradient(135deg, rgba(243, 220, 140, 0.45) 0%, rgba(212, 175, 55, 0.15) 40%, rgba(255, 240, 230, 0.35) 70%, rgba(200, 150, 62, 0.5) 100%);
+  box-shadow: 
+    0 20px 50px -15px rgba(0, 0, 0, 0.8),
+    0 0 35px rgba(212, 175, 55, 0.18);
+  transition: transform var(--transition-spring), box-shadow var(--transition-spring);
+}
+
+.luxury-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    0 25px 60px -15px rgba(0, 0, 0, 0.9),
+    0 0 45px rgba(212, 175, 55, 0.3);
+}
+
+.luxury-card-inner {
+  background: var(--color-bg-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: var(--radius-inner);
+  padding: var(--space-xl) var(--space-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+.luxury-card-inner::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+  transform: skewX(-25deg);
+  transition: left 0.8s ease;
+}
+
+.luxury-card:hover .luxury-card-inner::after {
+  left: 150%;
+}
+
+/* Ornements d'angle dorés impériaux */
+.ornament-corner {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--gold-primary);
+  opacity: 0.65;
+  pointer-events: none;
+}
+.ornament-top-left { top: 12px; left: 12px; border-right: none; border-bottom: none; }
+.ornament-top-right { top: 12px; right: 12px; border-left: none; border-bottom: none; }
+.ornament-bottom-left { bottom: 12px; left: 12px; border-right: none; border-top: none; }
+.ornament-bottom-right { bottom: 12px; right: 12px; border-left: none; border-top: none; }
+
+/* ==========================================================================
+   TYPOGRAPHIE & TITRES POÉTIQUES
+   ========================================================================== */
+
+.poetic-script {
+  font-family: var(--font-script);
+  color: var(--gold-light);
+  font-size: 3.5rem;
+  line-height: 1.1;
+  text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+}
+
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 18px;
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: var(--space-md);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
 }
 
 .section-title {
   font-family: var(--font-display);
   font-size: 2.8rem;
-  color: var(--color-gold);
-  letter-spacing: 0.12em;
-  margin-bottom: var(--spacing-xl);
-  text-align: center;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--pearl-white);
   text-transform: uppercase;
-  text-shadow: 0 0 25px rgba(212, 175, 55, 0.35);
+  text-align: center;
+  margin-bottom: var(--space-sm);
+  background: linear-gradient(180deg, #FFFFFF 0%, #F5E5C9 60%, #D4AF37 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 10px rgba(212, 175, 55, 0.3));
 }
 
-@media (max-width: 768px) {
-  .section-title {
-    font-size: 2.1rem;
-  }
+.section-subtitle {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  text-align: center;
+  max-width: 650px;
+  margin: 0 auto var(--space-xl);
+  line-height: 1.6;
 }
 
-/* Button styles */
-.btn {
+/* ==========================================================================
+   BOUTONS « WAOUH » & MICRO-INTERACTIONS
+   ========================================================================== */
+
+/* Bouton royal doré avec capsule interne */
+.btn-royal {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  padding: 0.9rem 2.2rem;
-  background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-dark) 100%);
-  color: #000000;
+  gap: 14px;
+  padding: 8px 10px 8px 24px;
+  background: linear-gradient(135deg, #F3DC8C 0%, #D4AF37 50%, #B88A2B 100%);
+  color: #120F0D;
   text-decoration: none;
+  font-family: var(--font-body);
   font-weight: 700;
-  letter-spacing: 0.08em;
-  transition: all var(--transition-normal);
-  border: none;
-  cursor: pointer;
   font-size: 0.95rem;
-  text-transform: uppercase;
-  border-radius: 50px;
-  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
-}
-
-.btn:hover {
-  background: linear-gradient(135deg, var(--color-gold-light) 0%, var(--color-gold) 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.6);
-  color: #000000;
-}
-
-/* Nav link hover effect */
-.nav-link {
-  text-decoration: none;
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 0.9rem;
-  font-weight: 500;
   letter-spacing: 0.08em;
-  position: relative;
-  padding: var(--spacing-xs) 0;
   text-transform: uppercase;
-  transition: color var(--transition-normal);
-}
-
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--color-gold);
-  transition: width var(--transition-normal);
-}
-
-.nav-link:hover {
-  color: var(--color-gold);
-}
-
-.nav-link:hover::after {
-  width: 100%;
-}
-
-/* Location grid responsive */
-@media (max-width: 768px) {
-  .location-grid {
-    grid-template-columns: 1fr !important;
-  }
-
-  .map-container,
-  .video-container {
-    height: 300px !important;
-  }
-}
-
-/* Mobile nav visibility */
-@media (min-width: 769px) {
-  .mobile-nav {
-    display: none !important;
-  }
-}
-
-@media (max-width: 768px) {
-  .desktop-header {
-    display: none !important;
-  }
-
-  footer {
-    padding-bottom: 140px !important;
-  }
-
-  .photos-grid {
-    grid-template-columns: 1fr !important;
-  }
-
-  .hero-in-memoriam {
-    font-size: 2.8rem !important;
-  }
-
-  .hero-name {
-    font-size: 1.5rem !important;
-  }
-
-  .age-badge {
-    width: 62px !important;
-    height: 62px !important;
-  }
-
-  .age-number {
-    font-size: 1.5rem !important;
-  }
-
-  .menu-arrow {
-    display: flex !important;
-  }
-
-  .menu-track {
-    animation: none !important;
-    overflow-x: auto !important;
-    scroll-snap-type: x mandatory !important;
-    -webkit-overflow-scrolling: touch !important;
-  }
-
-  .menu-track img {
-    width: 100% !important;
-    height: 250px !important;
-    scroll-snap-align: center !important;
-  }
-}
-
-/* Menu carousel keyframes */
-@keyframes scroll-left {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
-
-/* Three.js canvas container & fallbacks */
-.three-canvas-container {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  box-shadow: 
+    0 10px 30px rgba(212, 175, 55, 0.45),
+    inset 0 1px 2px rgba(255, 255, 255, 0.7);
+  transition: all var(--transition-spring);
+  position: relative;
   overflow: hidden;
 }
 
-.three-fallback-bg {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 25%, rgba(212, 175, 55, 0.12) 0%, #050505 75%);
+.btn-royal:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 
+    0 15px 40px rgba(212, 175, 55, 0.65),
+    0 0 30px rgba(243, 220, 140, 0.5);
 }
 
-.fatal-error {
-  padding: 3rem;
-  text-align: center;
-  color: var(--color-gold);
+.btn-royal:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Bulle interne pour l'icône dans le bouton */
+.btn-icon-bubble {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #120F0D;
+  color: var(--gold-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 1.2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  transition: transform var(--transition-spring);
 }
 
-/* Reduced motion accessibility */
+.btn-royal:hover .btn-icon-bubble {
+  transform: rotate(15deg) scale(1.1);
+  background: #000;
+  color: #FFF;
+}
+
+/* ==========================================================================
+   LECTEUR AUDIO SUPÉRIEUR AVEC DISQUE VINYLE OR ANIMÉ & VRAI VISUALISEUR
+   ========================================================================== */
+
+.audio-luxury-player {
+  background: linear-gradient(135deg, rgba(30, 24, 20, 0.85) 0%, rgba(18, 14, 12, 0.92) 100%);
+  border: 1.5px solid var(--gold-border);
+  border-radius: var(--radius-pill);
+  padding: 12px 24px 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 540px;
+  margin: 0 auto;
+  box-shadow: 
+    0 15px 40px rgba(0, 0, 0, 0.6),
+    0 0 30px rgba(212, 175, 55, 0.2);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  position: relative;
+  transition: border-color var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+
+.audio-luxury-player.playing {
+  border-color: var(--gold-light);
+  box-shadow: 
+    0 15px 45px rgba(0, 0, 0, 0.7),
+    0 0 40px rgba(212, 175, 55, 0.35);
+}
+
+/* Miniature Disque Vinyle en Or gravé tournant */
+.vinyl-disc {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: 
+    radial-gradient(circle at center, #D4AF37 0%, #8F661B 25%, #221C16 35%, #5E461A 50%, #1A1510 65%, #C8963E 85%, #8F661B 100%);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8), 0 0 15px rgba(212, 175, 55, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1.5px solid rgba(255, 230, 150, 0.5);
+  position: relative;
+}
+
+.vinyl-disc.spin {
+  animation: spinVinyl 8s linear infinite;
+}
+
+.vinyl-center-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #FFF9F0;
+  border: 3px solid #8F661B;
+}
+
+@keyframes spinVinyl {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Bouton de lecture magnétique central */
+.play-btn-halo {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-primary) 100%);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #120F0D;
+  box-shadow: 0 4px 18px rgba(212, 175, 55, 0.45);
+  transition: transform var(--transition-spring), box-shadow var(--transition-spring);
+  flex-shrink: 0;
+}
+
+.play-btn-halo:hover {
+  transform: scale(1.12);
+  box-shadow: 0 6px 25px rgba(243, 220, 140, 0.7);
+}
+
+.play-btn-halo:active {
+  transform: scale(0.95);
+}
+
+/* Barres d'onde sonore dansantes */
+.sound-bars-wrapper {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 24px;
+  padding: 0 6px;
+}
+
+.sound-bar {
+  width: 3.5px;
+  background: linear-gradient(180deg, var(--gold-light), var(--gold-warm));
+  border-radius: 2px;
+  transition: height 0.25s ease;
+}
+
+/* ==========================================================================
+   BOUGIE SACRÉE AVEC RAYONNEMENT THERMIQUE & ÉTINCELLES
+   ========================================================================== */
+
+.candle-sanctuary {
+  position: relative;
+  width: 32px;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.candle-wax {
+  width: 26px;
+  height: 64px;
+  background: linear-gradient(90deg, #FDF5E6 0%, #FFF8EE 45%, #EAD5B8 80%, #DFBE96 100%);
+  border-radius: 4px 4px 3px 3px;
+  box-shadow: 
+    0 4px 15px rgba(0, 0, 0, 0.6),
+    inset 0 -4px 6px rgba(180, 130, 70, 0.3);
+  position: relative;
+  margin-top: auto;
+}
+
+.candle-wick {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2.5px;
+  height: 14px;
+  background: #2B2117;
+  border-radius: 1px;
+}
+
+/* Flamme réaliste avec triple dégradé incandescent */
+.candle-flame-core {
+  position: absolute;
+  top: -42px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 34px;
+  background: radial-gradient(ellipse at 50% 85%, #FFFFFF 0%, #FFF099 25%, #FFA500 65%, #FF4500 95%, transparent 100%);
+  border-radius: 50% 50% 40% 40% / 60% 60% 40% 40%;
+  filter: drop-shadow(0 0 12px #FFD700) drop-shadow(0 0 24px #FF7700);
+  animation: flameFlicker 2.5s ease-in-out infinite alternate;
+  transform-origin: center bottom;
+}
+
+/* Halo doux de diffusion thermique */
+.candle-glow-aura {
+  position: absolute;
+  top: -55px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90px;
+  height: 90px;
+  background: radial-gradient(circle, rgba(255, 180, 50, 0.35) 0%, rgba(255, 140, 20, 0.15) 45%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: auraPulse 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes flameFlicker {
+  0%   { transform: translateX(-50%) rotate(-1deg) scale(1, 1); }
+  25%  { transform: translateX(-51%) rotate(1.5deg) scale(1.04, 0.98); }
+  50%  { transform: translateX(-49%) rotate(-2deg) scale(0.97, 1.05); }
+  75%  { transform: translateX(-50%) rotate(1deg) scale(1.02, 1.01); }
+  100% { transform: translateX(-50%) rotate(0deg) scale(1, 1); }
+}
+
+@keyframes auraPulse {
+  0% { transform: translateX(-50%) scale(0.95); opacity: 0.75; }
+  100% { transform: translateX(-50%) scale(1.1); opacity: 1; }
+}
+
+/* ==========================================================================
+   NAVIGATION DESKTOP & MOBILE LUXE
+   ========================================================================== */
+
+/* Header flottant en îlot de verre */
+.island-header {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 36px);
+  max-width: 980px;
+  background: rgba(18, 14, 12, 0.85);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: var(--radius-pill);
+  padding: 10px 28px;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 
+    0 15px 40px rgba(0, 0, 0, 0.7),
+    0 0 25px rgba(212, 175, 55, 0.15);
+  transition: transform var(--transition-spring), opacity var(--transition-spring);
+}
+
+.nav-link-royal {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  position: relative;
+  padding: 6px 0;
+  transition: color var(--transition-smooth);
+}
+
+.nav-link-royal::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+  transition: width var(--transition-smooth);
+}
+
+.nav-link-royal:hover {
+  color: var(--gold-light);
+}
+.nav-link-royal:hover::after {
+  width: 100%;
+}
+
+/* Navigation mobile inférieure en dock flottant */
+.mobile-dock {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 24px);
+  max-width: 440px;
+  background: rgba(18, 14, 12, 0.92);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  border-radius: var(--radius-pill);
+  z-index: 1000;
+  display: flex;
+  justify-content: space-around;
+  padding: 8px 12px;
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.85),
+    0 0 30px rgba(212, 175, 55, 0.25);
+}
+
+.mobile-dock-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  padding: 4px 8px;
+  border-radius: 12px;
+  transition: all var(--transition-smooth);
+}
+
+.mobile-dock-item:hover,
+.mobile-dock-item.active {
+  color: var(--gold-light);
+  transform: translateY(-2px);
+}
+
+.mobile-dock-icon {
+  font-size: 1.3rem;
+  margin-bottom: 2px;
+}
+
+/* ==========================================================================
+   CARROUSEL MENU & SECTIONS ADAPTATIVES
+   ========================================================================== */
+
+.menu-showcase-card {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1.5px solid rgba(212, 175, 55, 0.4);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  flex-shrink: 0;
+  width: 320px;
+  height: 240px;
+  background: #16120E;
+  transition: transform var(--transition-spring), border-color var(--transition-spring);
+}
+
+.menu-showcase-card:hover {
+  transform: scale(1.04);
+  border-color: var(--gold-light);
+}
+
+.menu-showcase-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Responsive Overrides */
+@media (min-width: 821px) {
+  .mobile-dock {
+    display: none !important;
+  }
+}
+
+@media (max-width: 820px) {
+  .island-header {
+    display: none !important;
+  }
+  
+  .poetic-script {
+    font-size: 2.7rem;
+  }
+
+  .section-title {
+    font-size: 2.1rem;
+  }
+
+  .luxury-card-inner {
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  body {
+    padding-bottom: 90px;
+  }
+}
+
+/* Accessibilité pour mouvements réduits */
 @media (prefers-reduced-motion: reduce) {
-  * {
+  *, ::before, ::after {
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-
-  html {
-    scroll-behavior: auto;
-  }
-
-  .menu-track {
+  .candle-flame-core, .vinyl-disc {
     animation: none !important;
   }
 }

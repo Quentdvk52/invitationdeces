@@ -3,8 +3,44 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import ErrorBoundary from './ErrorBoundary';
 
-// Particules d'or flottantes célestes (univers 3D en rotation lente)
-function FloatingCelestialDust({ count = 350 }) {
+// Anneau sacré céleste en rotation douce (halo de gloire éternelle)
+function SacredMemorialRing() {
+  const ringRef = useRef();
+
+  useFrame((state) => {
+    if (!ringRef.current) return;
+    const t = state.clock.elapsedTime;
+    ringRef.current.rotation.x = Math.sin(t * 0.15) * 0.2 + 0.5;
+    ringRef.current.rotation.y = t * 0.08;
+    ringRef.current.rotation.z = Math.cos(t * 0.1) * 0.15;
+  });
+
+  return (
+    <group ref={ringRef} position={[0, 2, -5]}>
+      <mesh>
+        <torusGeometry args={[8.5, 0.04, 16, 100]} />
+        <meshBasicMaterial
+          color="#F3DC8C"
+          transparent
+          opacity={0.35}
+          blending={THREE.AdditiveBlending}
+        />
+      </mesh>
+      <mesh>
+        <torusGeometry args={[9.2, 0.02, 16, 100]} />
+        <meshBasicMaterial
+          color="#FFF5DF"
+          transparent
+          opacity={0.25}
+          blending={THREE.AdditiveBlending}
+        />
+      </mesh>
+    </group>
+  );
+}
+
+// Poussière d'étoiles dorées & nacrées en apesanteur
+function PearlescentGoldenDust({ count = 380 }) {
   const pointsRef = useRef();
 
   const [positions, colors] = useMemo(() => {
@@ -13,25 +49,28 @@ function FloatingCelestialDust({ count = 350 }) {
 
     for (let i = 0; i < count; i++) {
       const i3 = i * 3;
-      // Distribution sphérique avec dispersion
-      const radius = 8 + Math.random() * 22;
-      const theta = Math.random() * Math.PI * 2;
-      const phi = Math.acos(2 * Math.random() - 1);
+      // Volume spatial large
+      pos[i3] = (Math.random() - 0.5) * 45;
+      pos[i3 + 1] = (Math.random() - 0.5) * 45;
+      pos[i3 + 2] = (Math.random() - 0.5) * 30;
 
-      pos[i3] = radius * Math.sin(phi) * Math.cos(theta);
-      pos[i3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
-      pos[i3 + 2] = radius * Math.cos(phi);
-
-      // Dégradé or impérial / or champagne
-      const isBright = Math.random() > 0.7;
-      if (isBright) {
+      // Palette : or chaud, or blanc nacré et ambre doux
+      const r = Math.random();
+      if (r > 0.65) {
+        // Reflet nacré opale
         col[i3] = 1.0;
-        col[i3 + 1] = 0.88;
-        col[i3 + 2] = 0.45;
+        col[i3 + 1] = 0.96;
+        col[i3 + 2] = 0.90;
+      } else if (r > 0.3) {
+        // Or impérial lumineux
+        col[i3] = 0.95;
+        col[i3 + 1] = 0.82;
+        col[i3 + 2] = 0.42;
       } else {
-        col[i3] = 0.83;
-        col[i3 + 1] = 0.69;
-        col[i3 + 2] = 0.22;
+        // Ambre chaleureux
+        col[i3] = 0.88;
+        col[i3 + 1] = 0.62;
+        col[i3 + 2] = 0.25;
       }
     }
 
@@ -40,66 +79,63 @@ function FloatingCelestialDust({ count = 350 }) {
 
   const posAttrRef = useRef();
 
-  useFrame((state, delta) => {
+  useFrame((state) => {
     if (!pointsRef.current) return;
-    const time = state.clock.elapsedTime;
-    // Rotation lente et majestueuse
-    pointsRef.current.rotation.y = time * 0.04;
-    pointsRef.current.rotation.x = Math.sin(time * 0.06) * 0.05;
+    const t = state.clock.elapsedTime;
+    pointsRef.current.rotation.y = t * 0.025;
+    pointsRef.current.rotation.x = Math.sin(t * 0.04) * 0.04;
   });
 
   return (
-    <group rotation={[0, 0, Math.PI / 6]}>
-      <points ref={pointsRef}>
-        <bufferGeometry>
-          <bufferAttribute
-            ref={posAttrRef}
-            attach="attributes-position"
-            args={[positions, 3]}
-            count={count}
-            itemSize={3}
-          />
-          <bufferAttribute
-            attach="attributes-color"
-            args={[colors, 3]}
-            count={count}
-            itemSize={3}
-          />
-        </bufferGeometry>
-        <pointsMaterial
-          size={0.16}
-          vertexColors
-          transparent
-          opacity={0.85}
-          sizeAttenuation
-          depthWrite={false}
-          blending={THREE.AdditiveBlending}
+    <points ref={pointsRef}>
+      <bufferGeometry>
+        <bufferAttribute
+          ref={posAttrRef}
+          attach="attributes-position"
+          args={[positions, 3]}
+          count={count}
+          itemSize={3}
         />
-      </points>
-    </group>
+        <bufferAttribute
+          attach="attributes-color"
+          args={[colors, 3]}
+          count={count}
+          itemSize={3}
+        />
+      </bufferGeometry>
+      <pointsMaterial
+        size={0.18}
+        vertexColors
+        transparent
+        opacity={0.8}
+        sizeAttenuation
+        depthWrite={false}
+        blending={THREE.AdditiveBlending}
+      />
+    </points>
   );
 }
 
-// Particules ascensionnelles (symbolisant les âmes et prières s'élevant vers le ciel)
-function AscendingLightMotes({ count = 180 }) {
+// Étincelles ascensionnelles poétiques (symbolisant les âmes et prières qui montent)
+function AscendingWarmMotes({ count = 160 }) {
   const pointsRef = useRef();
 
-  const [positions, speeds, horizontalWiggle] = useMemo(() => {
+  const [positions, speeds, phases] = useMemo(() => {
     const pos = new Float32Array(count * 3);
     const spd = new Float32Array(count);
-    const wig = new Float32Array(count);
+    const phs = new Float32Array(count);
 
     for (let i = 0; i < count; i++) {
       const i3 = i * 3;
-      pos[i3] = (Math.random() - 0.5) * 35;
-      pos[i3 + 1] = (Math.random() - 0.5) * 35;
-      pos[i3 + 2] = (Math.random() - 0.5) * 25;
+      pos[i3] = (Math.random() - 0.5) * 36;
+      pos[i3 + 1] = (Math.random() - 0.5) * 36;
+      pos[i3 + 2] = (Math.random() - 0.5) * 20;
 
       spd[i] = 0.02 + Math.random() * 0.035;
-      wig[i] = Math.random() * Math.PI * 2;
+      phs[i] = Math.random() * Math.PI * 2;
     }
 
-    return [pos, spd, wig];
+    return [pos, spd, phs];
   }, [count]);
 
   const posAttrRef = useRef();
@@ -107,22 +143,18 @@ function AscendingLightMotes({ count = 180 }) {
   useFrame((state, delta) => {
     if (!posAttrRef.current) return;
     const array = posAttrRef.current.array;
-    const time = state.clock.elapsedTime;
+    const t = state.clock.elapsedTime;
     const safeDelta = Math.min(delta, 0.1);
 
     for (let i = 0; i < count; i++) {
       const i3 = i * 3;
-      // Ascension verticale fluide
       array[i3 + 1] += speeds[i] * (safeDelta * 60);
+      array[i3] += Math.sin(t * 0.7 + phases[i]) * 0.015;
 
-      // Oscillation horizontale douce
-      array[i3] += Math.sin(time * 0.8 + horizontalWiggle[i]) * 0.012;
-
-      // Recyclage dès que la particule dépasse le haut de l'écran
-      if (array[i3 + 1] > 18) {
-        array[i3 + 1] = -18;
-        array[i3] = (Math.random() - 0.5) * 35;
-        array[i3 + 2] = (Math.random() - 0.5) * 25;
+      if (array[i3 + 1] > 20) {
+        array[i3 + 1] = -20;
+        array[i3] = (Math.random() - 0.5) * 36;
+        array[i3 + 2] = (Math.random() - 0.5) * 20;
       }
     }
 
@@ -141,10 +173,10 @@ function AscendingLightMotes({ count = 180 }) {
         />
       </bufferGeometry>
       <pointsMaterial
-        color="#F4D03F"
-        size={0.12}
+        color="#F3DC8C"
+        size={0.14}
         transparent
-        opacity={0.65}
+        opacity={0.7}
         sizeAttenuation
         depthWrite={false}
         blending={THREE.AdditiveBlending}
@@ -153,29 +185,23 @@ function AscendingLightMotes({ count = 180 }) {
   );
 }
 
-// Effet de parallaxe 3D réactif à la souris et au toucher
-function CameraParallax() {
+// Parallaxe 3D cinématique douce réactive à la souris / toucher
+function CameraFluidParallax() {
   useFrame((state) => {
     const { pointer, camera } = state;
-    // Lissage lerp vers la position de la souris / inclinaison
-    camera.position.x = THREE.MathUtils.lerp(camera.position.x, pointer.x * 2.5, 0.04);
-    camera.position.y = THREE.MathUtils.lerp(camera.position.y, pointer.y * 1.5, 0.04);
+    camera.position.x = THREE.MathUtils.lerp(camera.position.x, pointer.x * 2.8, 0.04);
+    camera.position.y = THREE.MathUtils.lerp(camera.position.y, pointer.y * 1.8, 0.04);
     camera.lookAt(0, 0, 0);
   });
   return null;
 }
 
-// Scène 3D principale
 export default function ThreeScene() {
   return (
     <div
-      className="three-canvas-container"
       style={{
         position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
+        inset: 0,
         zIndex: 0,
         pointerEvents: 'none',
         overflow: 'hidden'
@@ -187,24 +213,25 @@ export default function ThreeScene() {
             style={{
               position: 'absolute',
               inset: 0,
-              background: 'radial-gradient(ellipse at 50% 20%, rgba(212, 175, 55, 0.12) 0%, #050505 80%)'
+              background: 'radial-gradient(circle at 50% 20%, rgba(212, 175, 55, 0.15) 0%, #0A0807 80%)'
             }}
           />
         }
       >
         <Suspense fallback={null}>
           <Canvas
-            camera={{ position: [0, 0, 24], fov: 65 }}
+            camera={{ position: [0, 0, 22], fov: 65 }}
             gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
             dpr={[1, 1.5]}
             style={{ pointerEvents: 'none', background: 'transparent' }}
           >
-            <fog attach="fog" args={['#050505', 12, 40]} />
-            <ambientLight intensity={0.4} />
-            <pointLight position={[0, 4, 8]} intensity={1.5} color="#D4AF37" distance={30} />
-            <FloatingCelestialDust count={300} />
-            <AscendingLightMotes count={150} />
-            <CameraParallax />
+            <fog attach="fog" args={['#0A0807', 10, 38]} />
+            <ambientLight intensity={0.5} color="#FFF8EE" />
+            <pointLight position={[0, 6, 8]} intensity={2.2} color="#F3DC8C" distance={35} />
+            <SacredMemorialRing />
+            <PearlescentGoldenDust count={340} />
+            <AscendingWarmMotes count={150} />
+            <CameraFluidParallax />
           </Canvas>
         </Suspense>
       </ErrorBoundary>

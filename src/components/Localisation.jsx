@@ -6,140 +6,201 @@ export default function Localisation() {
     <section
       id="localisation"
       style={{
-        background: 'rgba(18, 18, 18, 0.85)',
-        backdropFilter: 'blur(16px)',
-        WebkitBackdropFilter: 'blur(16px)',
-        padding: 'var(--spacing-2xl) var(--spacing-md)',
-        textAlign: 'center',
-        borderBottom: '1px solid rgba(212, 175, 55, 0.2)'
+        padding: 'var(--space-3xl) var(--space-md)',
+        maxWidth: '1200px',
+        margin: '0 auto',
+        position: 'relative'
       }}
     >
-      <motion.h2
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-100px' }}
-        transition={{ duration: 1 }}
-        className="section-title"
-      >
-        Localisation
-      </motion.h2>
+      <div style={{ textAlign: 'center', marginBottom: 'var(--space-2xl)' }}>
+        <div className="section-eyebrow">
+          <span>📍</span> Accès et Cérémonies
+        </div>
+        <h2 className="section-title">Lieu du Recueillement</h2>
+        <p className="section-subtitle">
+          Samedi 28 Novembre 2026 à 12h00 • Cs Gnidjaszoun
+        </p>
+      </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-100px' }}
-        transition={{ duration: 1, delay: 0.2 }}
-        className="location-grid"
+      <div
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-          gap: 'var(--spacing-lg)',
-          maxWidth: '1100px',
-          margin: 'var(--spacing-xl) auto'
+          gap: 'var(--space-xl)',
+          marginBottom: 'var(--space-xl)'
         }}
       >
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column'
-          }}
+        {/* Carte Google Map interactive */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="luxury-card"
         >
-          <h3
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: '1.6rem',
-              color: 'var(--color-gold)',
-              marginBottom: 'var(--spacing-md)'
-            }}
-          >
-            Google Map
-          </h3>
-          <div
-            className="map-container"
-            style={{
-              width: '100%',
-              height: '380px',
-              border: '2px solid rgba(212, 175, 55, 0.6)',
-              borderRadius: 'var(--spacing-md)',
-              overflow: 'hidden',
-              boxShadow: '0 10px 30px rgba(0,0,0,0.6)'
-            }}
-          >
-            <iframe
-              src={`https://maps.google.com/maps?q=${SITE_DATA.location.mapQuery}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
-              width="100%"
-              height="100%"
-              style={{ border: 'none', filter: 'grayscale(30%) contrast(1.1)' }}
-              allowFullScreen=""
-              loading="lazy"
-              title="Localisation des cérémonies"
-            />
-          </div>
-        </div>
-
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column'
-          }}
-        >
-          <h3
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: '1.6rem',
-              color: 'var(--color-gold)',
-              marginBottom: 'var(--spacing-md)'
-            }}
-          >
-            Vidéo Guide
-          </h3>
-          <div
-            className="video-container"
-            style={{
-              width: '100%',
-              height: '380px',
-              border: '2px solid rgba(212, 175, 55, 0.6)',
-              borderRadius: 'var(--spacing-md)',
-              overflow: 'hidden',
-              boxShadow: '0 10px 30px rgba(0,0,0,0.6)',
-              background: '#000'
-            }}
-          >
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              controls
+          <div className="luxury-card-inner" style={{ padding: 'var(--space-md)' }}>
+            <div
               style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover'
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginBottom: '1rem'
               }}
             >
-              <source src={MEDIA_URLS.video.location} type="video/mp4" />
-              Votre navigateur ne supporte pas la lecture vidéo.
-            </video>
-          </div>
-        </div>
-      </motion.div>
+              <h3
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  fontSize: '1.4rem',
+                  color: 'var(--gold-light)',
+                  margin: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px'
+                }}
+              >
+                <span>🗺️</span> Carte Interactive
+              </h3>
+              <a
+                href={`https://maps.google.com/?q=${SITE_DATA.location.mapQuery}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  fontSize: '0.8rem',
+                  color: 'var(--text-secondary)',
+                  textDecoration: 'underline'
+                }}
+              >
+                Agrandir ↗
+              </a>
+            </div>
 
-      <motion.p
-        initial={{ opacity: 0, y: 30 }}
+            <div
+              style={{
+                width: '100%',
+                height: '360px',
+                borderRadius: 'var(--radius-inner)',
+                overflow: 'hidden',
+                border: '1.5px solid rgba(212, 175, 55, 0.4)',
+                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.7)'
+              }}
+            >
+              <iframe
+                src={`https://maps.google.com/maps?q=${SITE_DATA.location.mapQuery}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
+                width="100%"
+                height="100%"
+                style={{ border: 'none', filter: 'contrast(1.05) saturate(1.1)' }}
+                allowFullScreen=""
+                loading="lazy"
+                title="Localisation des cérémonies"
+              />
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Vidéo Guide de l'Itinéraire */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+          className="luxury-card"
+        >
+          <div className="luxury-card-inner" style={{ padding: 'var(--space-md)' }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginBottom: '1rem'
+              }}
+            >
+              <h3
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  fontSize: '1.4rem',
+                  color: 'var(--gold-light)',
+                  margin: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px'
+                }}
+              >
+                <span>🎥</span> Vidéo Guide d'Itinéraire
+              </h3>
+              <span
+                style={{
+                  fontSize: '0.75rem',
+                  color: 'var(--gold-light)',
+                  background: 'rgba(212, 175, 55, 0.15)',
+                  padding: '3px 8px',
+                  borderRadius: '10px'
+                }}
+              >
+                Repères visuels
+              </span>
+            </div>
+
+            <div
+              style={{
+                width: '100%',
+                height: '360px',
+                borderRadius: 'var(--radius-inner)',
+                overflow: 'hidden',
+                border: '1.5px solid rgba(212, 175, 55, 0.4)',
+                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.7)',
+                background: '#0A0807'
+              }}
+            >
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                controls
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover'
+                }}
+              >
+                <source src={MEDIA_URLS.video.location} type="video/mp4" />
+                Votre appareil ne supporte pas la vidéo.
+              </video>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Indication d'accès & Bouton GPS */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-100px' }}
-        transition={{ duration: 1, delay: 0.4 }}
-        style={{
-          fontSize: '1.1rem',
-          color: 'var(--color-gold)',
-          marginTop: 'var(--spacing-lg)',
-          fontStyle: 'italic',
-          maxWidth: '700px',
-          margin: 'var(--spacing-lg) auto 0'
-        }}
+        viewport={{ once: true, margin: '-60px' }}
+        transition={{ duration: 1, delay: 0.3 }}
+        style={{ textAlign: 'center' }}
       >
-        {SITE_DATA.location.hint}
-      </motion.p>
+        <p
+          style={{
+            fontFamily: 'var(--font-serif)',
+            fontStyle: 'italic',
+            fontSize: '1.1rem',
+            color: 'var(--gold-light)',
+            marginBottom: 'var(--space-lg)'
+          }}
+        >
+          {SITE_DATA.location.hint}
+        </p>
+
+        <a
+          href={`https://maps.google.com/?q=${SITE_DATA.location.mapQuery}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-royal"
+        >
+          <span>Ouvrir l'Itinéraire GPS</span>
+          <span className="btn-icon-bubble">📍</span>
+        </a>
+      </motion.div>
     </section>
   );
 }
